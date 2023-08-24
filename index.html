@@ -1,28 +1,106 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>항행업무 계산프로그램</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>NASCA - NAvaid Service CAlculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px; /* 이 값을 조절하여 원하는 너비를 설정할 수 있습니다. */
+            margin: 0 auto;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-bold {
+            font-weight: bold;
+        }
+        .text-large {
+            font-size: 30px;
+        }
+        .text-color {
+            color: #8A0D0D;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+        .search-input {
+            flex-grow: 10;
+            margin-left: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px 15px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            background-color: #f4f4f4; /* 버튼의 기본 배경색을 설정합니다. */
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e0e0e0; /* 마우스 호버 시의 배경색입니다. */
+        }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <span class="header-text">항행업무 계산프로그램</span>
+    <div class="container">
+        <div class="text-center">
+            <h1 class="text-large text-bold text-color">NASCA</h1>
+            <p class="text-color">- NAvaid Service CAlculator -</p>
+        </div>
+        <p class="text-right">ver.0.0.0</p>
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="🔍 검색어를 입력하세요">
+        </div>
+        <div>
+    <a href="layoutPage.html"><button data-search-target>전파고도제한높이 계산(GP)</button></a>
+    <button data-search-target>SBO 출력에 따른 Width 조정</button>
+    <button data-search-target>90˚(1/4λ) 케이블 재단</button>
+    <button data-search-target>DS DDM(%)에 따른 DDM값(GP)</button>
+    <button data-search-target>VSWR에 대한 Return Loss</button>
+    <button data-search-target>SBO 출력 조정에 따른 CRS width/Path width 조정</button>
+    <button data-search-target>LOC Commissioned width 산출</button>
+    <button data-search-target>LOC G/C의 CRS width DDM을 앵글(deg)로 변환</button>
+    <button data-search-target>BITE 점검 오차 산출</button>
+    <button data-search-target>GP 안테나 높이 산출</button>
+    <button data-search-target>각종 단위 변환</button>
+</div>
     </div>
-    <div class="version">
-        <span>ver.0.0.0</span>
-    </div>
-    <ul id="listview">
-        <li onclick="openLayoutPage()">리스트 아이템 1</li>
-        <!-- 나머지 리스트 아이템들 -->
-    </ul>
-
     <script>
-        function openLayoutPage() {
-            window.location.href = 'layoutPage.html';
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            // 검색 입력란을 참조합니다.
+            const searchInput = document.querySelector('.search-input');
+
+            // 검색 입력란에 input 이벤트 리스너를 추가합니다.
+            searchInput.addEventListener('input', function() {
+                // 현재 입력된 검색어를 가져옵니다.
+                const query = this.value.toLowerCase().trim();
+
+                // 모든 검색 대상 버튼을 가져옵니다.
+                const buttons = document.querySelectorAll('button[data-search-target]');
+
+                // 각 버튼을 순회하며 필터링 작업을 수행합니다.
+                buttons.forEach(button => {
+                    if (button.textContent.toLowerCase().includes(query)) {
+                        // 검색어가 버튼의 텍스트에 포함되면 표시합니다.
+                        button.style.display = 'block';
+                    } else {
+                        // 포함되지 않으면 숨깁니다.
+                        button.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>

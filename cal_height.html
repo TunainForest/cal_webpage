@@ -1,81 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #F2EBFF;
-    }
-    #main-container {
-        padding: 10px;
-    }
-    .section {
-        margin: 10px 0;
-        padding: 10px;
-        background-color: #A7B0FF;
-        font-weight: bold;
-        line-height: 1.5;
-    }
-    .sub-section {
-        margin: 10px 0;
-        padding: 10px;
-        background-color: #F2EBFF;
-    }
-    .input-container {
-        display: flex;
-        margin-top: 5px;
-    }
-    .input-field {
-        flex: 1;
-        min-height: 48px;
-        padding: 5px;
-        border: 1px solid #000;
-        border-radius: 5px;
-    }
-    .input-button {
-        min-width: 70px;
-        padding: 5px;
-        margin-left: 5px;
-        background-color: #A7B0FF;
-        border: none;
-        border-radius: 5px;
-        font-size: 18px;
-        cursor: pointer;
-    }
-    .result {
-        margin-top: 10px;
-        padding: 5px;
-        font-size: 15px;
-        font-weight: bold;
-        color: #3E0202;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A01_Cal_Height_GP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #F2EBFF;
+            padding: 20px;
+        }
+        .section-header {
+            background-color: #A7B0FF;
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .formula {
+            background-color: #F2EBFF;
+            padding: 10px;
+            text-align: center;
+        }
+        .formula-bold {
+            font-weight: bold;
+        }
+        .formula-italic {
+            font-style: italic;
+        }
+        .input-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .input-section input {
+            flex: 1;
+            padding: 10px;
+            margin: 0 10px;
+            border: 1px solid #000;
+        }
+        .btn {
+            flex-basis: 80px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result-section {
+            background-color: #F2EBFF;
+            padding: 10px;
+        }
+        .result-section p {
+            color: #3E0202;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-<div id="main-container">
-    <div class="section">1. GP의 전파제한고도</div>
-    <div class="sub-section">
-        <p class="input-label">- 사용공식 -</p>
-        <p class="input-text">GP전파제한높이 = tan0.67˚×(Lg-800)<br>Lg:GP에서 건축물까지 거리<br>*ICAO ANNEX, EURO DOC 015 Building Restricted Area</p>
-        <div class="input-container">
-            <input type="number" class="input-field" placeholder=" Lg 입력" id="input1">
-            <button class="input-button" id="button1">CAL</button>
+
+<div class="container">
+    <div class="section-header">1. GP의 전파제한고도</div>
+
+    <div class="formula">
+        <p class="formula-bold">- 사용공식 -</p>
+        <p class="formula-italic">GP전파제한높이 = tan0.67˚×(Lg-800)<br>Lg:GP에서 건축물까지 거리<br>*ICAO ANNEX, EURO DOC 015 Building Restricted Area</p>
+
+        <div class="input-section">
+            <input type="number" placeholder="Lg 입력" id="input1">
+            <button class="btn" id="button1">CAL</button>
         </div>
-        <div class="result" id="result1"></div>
     </div>
 
-    <div class="section">2. LOC의 전파제한고도</div>
-    <div class="sub-section">
-        <p class="input-label">- 사용공식 -</p>
-        <p class="input-text">LOC전파제한높이 = tan0.67˚×(Ld-La)<br>Ld:LOC에서 건축물까지 거리<br>La:활주로종단+ANT까지의 거리<br>* ICAO ANNEX, EURO DOC 015 Building Restricted Area</p>
-        <div class="input-container">
-            <input type="number" class="input-field" placeholder=" Ld 입력" id="input2">
-            <input type="number" class="input-field" placeholder=" La 입력" id="input3">
-            <button class="input-button" id="button2">CAL</button>
+    <div class="result-section">
+        <p id="result1"></p>
+    </div>
+
+    <div class="section-header">2. LOC의 전파제한고도</div>
+
+    <div class="formula">
+        <p class="formula-bold">- 사용공식 -</p>
+        <p class="formula-italic">LOC전파제한높이 = tan0.67˚×(Ld-La)<br>Ld:LOC에서 건축물까지 거리<br>La:활주로종단+ANT까지의 거리<br>* ICAO ANNEX, EURO DOC 015 Building Restricted Area</p>
+
+        <div class="input-section">
+            <input type="number" placeholder="Ld 입력" id="input2">
+            <input type="number" placeholder="La 입력" id="input3">
+            <button class="btn" id="button2">CAL</button>
         </div>
-        <div class="result" id="result2"></div>
+    </div>
+
+    <div class="result-section">
+        <p id="result2"></p>
     </div>
 </div>
 

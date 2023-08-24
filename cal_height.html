@@ -104,8 +104,21 @@
     <div class="result-section">
         <p id="result2"></p>
     </div>
-
 </div>
+    <script>
+        function calculateGP() {
+            const dg = parseFloat(document.getElementById('input1').value);
+            const calculation = Math.tan(Math.PI / 180 * 0.77) * (dg - 800) + 7.663;
+            document.getElementById('result1').textContent = `건축물의 GP 전파제한 고도는 ${calculation.toFixed(2)} m 입니다.`;
+        }
 
+        function calculateLOC() {
+            const ld = parseFloat(document.getElementById('input2').value);
+            const la = parseFloat(document.getElementById('input3').value);
+            const calculation = Math.tan(Math.PI / 180 * 0.67) * (ld - la) + 7.663;
+            document.getElementById('result2').textContent = `건축물의 LOC 전파제한 고도는 ${calculation.toFixed(2)} m 입니다.`;
+        }
+    </script>
 </body>
 </html>
+

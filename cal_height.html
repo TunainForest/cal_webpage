@@ -87,7 +87,7 @@
     button1.addEventListener("click", () => {
         const lg = parseFloat(input1.value);
         const result = Math.tan(0.67 * Math.PI / 180) * (lg - 800);
-        result1.innerText = `계산 결과: ${result.toFixed(2)}`;
+        result1.innerText = `건축물의 GP 전파제한 고도는 ${result.toFixed(2)} m 입니다.`;
     });
 
     const button2 = document.getElementById("button2");
@@ -99,7 +99,7 @@
         const ld = parseFloat(input2.value);
         const la = parseFloat(input3.value);
         const result = Math.tan(0.67 * Math.PI / 180) * (ld - la);
-        result2.innerText = `계산 결과: ${result.toFixed(2)}`;
+        result2.innerText = `건축물의 LOC 전파제한 고도는 ${result.toFixed(2)} m 입니다.`;
     });
 </script>
 </body>

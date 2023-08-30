@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NASCAL - NAvaid Service CAlculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px; /* 이 값을 조절하여 원하는 너비를 설정할 수 있습니다. */
+            margin: 0 auto;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-bold {
+            font-weight: bold;
+        }
+        .text-large {
+            font-size: 30px;
+        }
+        .text-color {
+            color: #8A0D0D;
+        }
+        .text-right {
+            text-align: right;
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+        }
+        .search-input {
+            flex-grow: 10;
+            margin-left: 5px;
+        }
+        button[data-search-target] {
+            width: 100%;
+            padding: 10px 15px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+            background-color: hsl(268, 100%, 81%); /* 버튼의 기본 배경색을 설정합니다. */
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #D8BFD8; /* 마우스 호버 시의 배경색입니다. */
+        }
+        .info-popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            z-index: 10;
+        }
+        .info-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            max-width: 100px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center">
+            <h1 class="text-large text-bold text-color">NASCAL</h1>
+            <p class="text-color">- NAvaid Service CAlculator -</p>항행업무용 계산기</p>
+        </div>
+        <!-- 버튼추가 -->
+        <p class="text-right">ver.0.0.0 <button id="info-button" class="info-button">ⓘ</button></p>
+        <!-- 팝업추가 -->
+        <div id="info-popup" class="info-popup">
+            <img src="img/developer.png" alt="developer">
+            <p>기 획: 울산공항 시설부 김승범 과장</p>
+            <p>제 작: 울산공항 시설부 오재현 대리</p>
+            <p>문 의: (052)219-6336 / 내선: 86-6336</p>
+            <button id="close-button">닫기</button>
+        </div>
+
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="🔍 검색어를 입력하세요">
+        </div>
+        <div>
+    <a href="01_cal_height.html"><button data-search-target>(GP)(LOC)전파고도제한높이 계산</button></a>
+    <a href="02_adjust_crs_path_width.html"></a><button data-search-target>(GP)(LOC) CRS/Path Width 조정</button>
+    <a href="03_90deg_cable.html"></a><button data-search-target>(GP)(LOC) 사용주파수의 90°케이블 길이</button>
+    <a href="04_cal_ds_ddm.html"></a><button data-search-target>(GP)(LOC) DS DDM(%)에 따른 DDM [INDRA장비전용]</button>
+    <a href="05_cal_ddm_sdm.html"></a><button data-search-target>(GP)(LOC) DDM & SDM</button>
+    <a href="06_gp_ant_height.html"></a><button data-search-target>(GP) GP 안테나 높이 산출</button>
+    <a href="07_gp_ant_offset.html"></a><button data-search-target>(GP) GP 안테나 오프셋 산출</button>
+    <a href="08_loc_comm_width.html"></a><button data-search-target>(LOC) LOC Commissioned width 산출</button>
+    <a href="09_gc_crs_ddm_angle.html"></a><button data-search-target>(LOC) LOC G/C의 CRS width DDM을 앵글(deg)로 변환</button>
+    <a href="10_bite_error.html"></a><button data-search-target>(공통) BITE 점검 오차 산출</button>
+    <a href="11_cal_limit.html"></a><button data-search-target>(공통) 점검항목의 허용치</button>
+    <a href="12_unit_conversion.html"></a><button data-search-target>(공통) VSWR 계산</button>
+
+<!-- 검색 기능 추가  -->
+</div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 검색 입력란을 참조합니다.
+            const searchInput = document.querySelector('.search-input');
+
+            // 검색 입력란에 input 이벤트 리스너를 추가합니다.
+            searchInput.addEventListener('input', function() {
+                // 현재 입력된 검색어를 가져옵니다.
+                const query = this.value.toLowerCase().trim();
+
+                // 모든 검색 대상 버튼을 가져옵니다.
+                const buttons = document.querySelectorAll('button[data-search-target]');
+
+                // 각 버튼을 순회하며 필터링 작업을 수행합니다.
+                buttons.forEach(button => {
+                    if (button.textContent.toLowerCase().includes(query)) {
+                        // 검색어가 버튼의 텍스트에 포함되면 표시합니다.
+                        button.style.display = 'block';
+                    } else {
+                        // 포함되지 않으면 숨깁니다.
+                        button.style.display = 'none';
+                    }
+                });
+            });
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            const infoButton = document.getElementById("info-button");
+            const infoPopup = document.getElementById("info-popup");
+            const closeButton = document.getElementById("close-button");
+            // "ⓘ" 버튼을 눌렀을 때
+            infoButton.addEventListener("click", function() {
+                infoPopup.style.display = "block";
+            });
+            // "닫기" 버튼을 눌렀을 때
+            closeButton.addEventListener("click", function() {
+                infoPopup.style.display = "none";
+            });
+        });
+    </script>
+</body>
+</html>

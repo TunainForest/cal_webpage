@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Make 90deg Cable</title>
+    <title>Adjust CRS and Path width by using DDM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         /* CSS Styles */
@@ -13,7 +13,7 @@
             background-color: #A7B0FF;
             text-align: center;
             font-weight: bold;
-            font-size: 22px;
+            font-size: 25px;
             padding: 10px;
         }
         .content {
@@ -31,13 +31,17 @@
             text-align: center;
             font-style: italic;
             padding: 10px;
-            font-size: 15px;
+            font-size: 20px;
         }
         .input-container {
             display: flex;
             justify-content: center;
         }
-        #fl-input, #pl-input, #fp-input, #lp-input, #lfp-calculate, #pfl-calculate {
+        #wp-input, #wc-input {
+            flex: 3;
+            margin: 5px;
+        }
+        #wp-calculate, #wc-calculate {
             flex: 1;
             margin: 5px;
         }
@@ -77,61 +81,71 @@
 </head>
 <body>
     <div class="container">
-        <!-- cable length Section -->
-        <div class="header">1. 주파수,위상에 대한 케이블 길이</div>
+        <!-- Path Width Section -->
+        <div class="header">1. GP-SBO출력으로 Path width 조정</div>
         <div class="content">
             <div class="formula">
                 <p>- 사용공식 -</p>
-                <p> 케이블의 길이(l)= 전파속도(c)/주파수(f)/위상(p)</p>
+                <p>조정값 = 20 x log10(wp/0.7)</p>
+                <ul style="list-style-type: none;"> <!-- list-style-type을 none으로 설정하여 점을 제거 -->
+                    <li>wp: 현재 path width 값 </li>
+                </ul>
             </div>
             <div class="input-container">
-                <input type="text" id="fl-input" placeholder="주파수(MHz)">
-                <input type="text" id="pl-input" placeholder="위상(deg)">
-                <button id="lfp-calculate" class="btn-calculate">CAL</button>
+                <input type="text" id="wp-input" placeholder="wp 입력">
+                <button id="wp-calculate" class="btn-calculate">CAL</button>
             </div>
             <div class="result">계산 결과</div>
-            <div id="lfp-result" class="result-value">
-                <!-- 케이블 길이  -->
+            <div id="wp-result" class="result-value">
+                <!-- Path Width 결과를 출력할 공간 -->
             </div>
         </div>
 
-        <!-- phase Section -->
-        <div class="header">2. 주파수, 케이블의 길이에 대한 위상</div>
+        <!-- CRS width Section -->
+        <div class="header">2. LOC-SBO출력으로 CRS width 조정</div>
         <div class="content">
             <div class="formula">
                 <p>- 사용공식 -</p>
-                <p>위상(p) = 케이블의길이(l)x주파수(f)/전파속도(c) </p>
+                <p>조정값 = 20 x log10(wc/0.7)</p> <!-- 공식을 적절하게 설정해 주세요 -->
+                <ul style="list-style-type: none;"> <!-- list-style-type을 none으로 설정하여 점을 제거 -->
+                    <li>wc: 현재 CRS width 값</li>
+                </ul>
             </div>
             <div class="input-container">
-                <input type="text" id="fp-input" placeholder="주파수(MHz)">
-                <input type="text" id="lp-input" placeholder="케이블길이(cm)">
-                <button id="pfl-calculate" class="btn-calculate">CAL</button>
+                <input type="text" id="wc-input" placeholder="wc 입력">
+                <button id="wc-calculate" class="btn-calculate">CAL</button>
             </div>
             <div class="result">계산 결과</div>
-            <div id="pfl-result" class="result-value">
-                <!-- 위상 -->
+            <div id="wc-result" class="result-value">
+                <!-- CRS width 결과를 출력할 공간 -->
             </div>
         </div>
     </div>
     <script>
-        // 케이블길이 계산 함수
-        function calculatelfp() {
-            var fl = parseFloat(document.querySelector("#fl-input").value);
-            var pl = parseFloat(document.querySelector("#pl-input").value);
-            var p = 360/pl;
-            var result = 300 / fl / p * 100;
-            document.querySelector("#lfp-result").innerText = "케이블의 길이: " + result.toFixed(1) + " cm";
+        // Path Width 계산 함수
+        function calculateWp() {
+            var wp = parseFloat(document.querySelector("#wp-input").value);
+            var result = Math.abs(20 * Math.log10(wp / 0.7));
+            if (wp > 0.7) {
+                document.querySelector("#wp-result").innerText = "SBO 출력을 " + result.toFixed(3) + "dB 만큼 높게 설정하세요.";
+            } else {
+                document.querySelector("#wp-result").innerText = "SBO 출력을 " + result.toFixed(3) + "dB 만큼 낮게 설정하세요.";
+            }
         }
-        // 위상 계산 함수
-        function calculatepfl() {
-            var fp = parseFloat(document.querySelector("#fp-input").value);
-            var lp = parseFloat(document.querySelector("#lp-input").value);
-            var result = 360 * lp * fp / 300 / 100;
-            document.querySelector("#pfl-result").innerText = "위상: " + result.toFixed(2) + " °";
+        // CRS width 계산 함수
+        function calculateWc() {
+            var wc = parseFloat(document.querySelector("#wc-input").value);
+            var result = Math.abs(20 * Math.log10(wc / 0.7));
+            if (wc > 0.7) {
+                document.querySelector("#wc-result").innerText = "SBO 출력을 " + result.toFixed(3) + "dB 만큼 높게 설정하세요.";
+            } else {
+                document.querySelector("#wc-result").innerText = "SBO 출력을 " + result.toFixed(3) + "dB 만큼 낮게 설정하세요.";
+            }
         }
+
         // 버튼 이벤트 설정
-        document.querySelector("#lfp-calculate").addEventListener("click", calculatelfp);
-        document.querySelector("#pfl-calculate").addEventListener("click", calculatepfl);
+        document.querySelector("#wp-calculate").addEventListener("click", calculateWp);
+        document.querySelector("#wc-calculate").addEventListener("click", calculateWc);
     </script>
 </body>
 </html>

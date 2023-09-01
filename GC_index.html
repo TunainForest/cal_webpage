@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data Input</title>
+  <style>
+    .tx-box {
+      display: inline-block;
+      margin-right: 20px;
+    }
+    .label-fixed-width {
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+        margin-right: 10px;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>  
+</head>
+<body>
+
+  <h1>Enter Your Data</h1>
+
+  <form id="dataForm">
+    <label for="date">날짜(yy.mm.dd):</label>
+    <input type="date" id="date" name="date"><br><br>
+
+    <label for="runway">활주로(ex. 14L):</label>
+    <input type="text" id="runway" name="runway"><br><br>
+
+    <div class="tx-box">
+      <h3>Tx1</h3>
+      <!-- Add Tx1 input fields here. For example: -->
+      <label class="label-fixed-width" for="tx1_90Hz_35deg">90Hz 35deg:</label>
+      <input type="number" id="tx1_90Hz_35deg" name="tx1_90Hz_35deg" step="0.0001"><br>
+      <label class="label-fixed-width"  for="tx1_90Hz_30deg">90Hz 30deg:</label>
+      <input type="number" id="tx1_90Hz_30deg" name="tx1_90Hz_30deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_90Hz_25deg">90Hz 25deg:</label>
+      <input type="number" id="tx1_90Hz_25deg" name="tx1_90Hz_25deg" step="0.0001"><br>
+      <label class="label-fixed-width"  for="tx1_90Hz_20deg">90Hz 20deg:</label>
+      <input type="number" id="tx1_90Hz_20deg" name="tx1_90Hz_20deg" step="0.0001"><br>
+      <label class="label-fixed-width"  for="tx1_90Hz_15deg">90Hz 15deg:</label>
+      <input type="number" id="tx1_90Hz_15deg" name="tx1_90Hz_15deg" step="0.0001"><br>
+      <label class="label-fixed-width"  for="tx1_90Hz_10deg">90Hz 10deg:</label>
+      <input type="number" id="tx1_90Hz_10deg" name="tx1_90Hz_10deg" step="0.0001"><br>
+      <label class="label-fixed-width"  for="tx1_90Hz_5deg">90Hz 5deg:</label>
+      <input type="number" id="tx1_90Hz_5deg" name="tx1_90Hz_5deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_90Hz_width">90Hz width:</label>
+      <input type="number" id="tx1_90Hz_width" name="tx1_90Hz_width" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_CL">C/L:</label>
+      <input type="number" id="tx1_CL" name="tx1_CL" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_150Hz_width">150Hz width:</label>
+      <input type="number" id="tx1_150Hz_width" name="tx1_150Hz_width" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_150Hz_5deg">150Hz 5deg:</label>
+      <input type="number" id="tx1_150Hz_5deg" name="tx1_150Hz_5deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_150Hz_10deg">150Hz 10deg:</label>
+      <input type="number" id="tx1_150Hz_10deg" name="tx1_150Hz_10deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_150Hz_15deg">150Hz 15deg:</label>
+      <input type="number" id="tx1_150Hz_15deg" name="tx1_150Hz_15deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_150Hz_20deg">150Hz 20deg:</label>
+      <input type="number" id="tx1_150Hz_20deg" name="tx1_150Hz_20deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_150Hz_25deg">150Hz 25deg:</label>
+      <input type="number" id="tx1_150Hz_25deg" name="tx1_150Hz_25deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_150Hz_30deg">150Hz 30deg:</label>
+      <input type="number" id="tx1_150Hz_30deg" name="tx1_150Hz_30deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx1_150Hz_35deg">150Hz 35deg:</label>
+      <input type="number" id="tx1_150Hz_35deg" name="tx1_150Hz_35deg" step="0.0001"><br>
+    </div>
+
+    <div class="tx-box">
+      <h3>Tx2</h3>
+      <label class="label-fixed-width" for="tx2_90Hz_35deg">90Hz 35deg:</label>
+      <input type="number" id="tx2_90Hz_35deg" name="tx2_90Hz_35deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_90Hz_30deg">90Hz 30deg:</label>
+      <input type="number" id="tx2_90Hz_30deg" name="tx2_90Hz_30deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_90Hz_25deg">90Hz 25deg:</label>
+      <input type="number" id="tx2_90Hz_25deg" name="tx2_90Hz_25deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_90Hz_20deg">90Hz 20deg:</label>
+      <input type="number" id="tx2_90Hz_20deg" name="tx2_90Hz_20deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_90Hz_15deg">90Hz 15deg:</label>
+      <input type="number" id="tx2_90Hz_15deg" name="tx2_90Hz_15deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_90Hz_10deg">90Hz 10deg:</label>
+      <input type="number" id="tx2_90Hz_10deg" name="tx2_90Hz_10deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_90Hz_5deg">90Hz 5deg:</label>
+      <input type="number" id="tx2_90Hz_5deg" name="tx2_90Hz_5deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_90Hz_width">90Hz width:</label>
+      <input type="number" id="tx2_90Hz_width" name="tx2_90Hz_width" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_CL">C/L:</label>
+      <input type="number" id="tx2_CL" name="tx2_CL" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_150Hz_width">150Hz width:</label>
+      <input type="number" id="tx2_150Hz_width" name="tx2_150Hz_width" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_150Hz_5deg">150Hz 5deg:</label>
+      <input type="number" id="tx2_150Hz_5deg" name="tx2_150Hz_5deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_150Hz_10deg">150Hz 10deg:</label>
+      <input type="number" id="tx2_150Hz_10deg" name="tx2_150Hz_10deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_150Hz_15deg">150Hz 15deg:</label>
+      <input type="number" id="tx2_150Hz_15deg" name="tx2_150Hz_15deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_150Hz_20deg">150Hz 20deg:</label>
+      <input type="number" id="tx2_150Hz_20deg" name="tx2_150Hz_20deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_150Hz_25deg">150Hz 25deg:</label>
+      <input type="number" id="tx2_150Hz_25deg" name="tx2_150Hz_25deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_150Hz_30deg">150Hz 30deg:</label>
+      <input type="number" id="tx2_150Hz_30deg" name="tx2_150Hz_30deg" step="0.0001"><br>
+      <label class="label-fixed-width" for="tx2_150Hz_35deg">150Hz 35deg:</label>
+      <input type="number" id="tx2_150Hz_35deg" name="tx2_150Hz_35deg" step="0.0001"><br>
+    </div>
+
+    <button type="button" id="saveToExcel">Save to Excel</button>
+  </form>
+
+  <script>
+    document.getElementById('saveToExcel').addEventListener('click', function() {
+        const date = document.getElementById('date').value;
+        const runway = document.getElementById('runway').value;
+        const labels = ['날짜',
+        '90Hz 35deg', '90Hz 30deg', '90Hz 25deg', '90Hz 20deg', '90Hz 15deg', '90Hz 10deg', '90Hz 5deg',
+        '90Hz width', 'C/L', '150Hz width',
+        '150Hz 35deg', '150Hz 30deg', '150Hz 25deg', '150Hz 20deg', '150Hz 15deg', '150Hz 10deg', '150Hz 5deg'
+    ];
+    const tx1Data = [date];
+    const tx2Data = [date];
+    for (const label of labels.slice(1)) {
+        tx1Data.push(document.getElementById(`tx1_${label}`).value);
+        tx2Data.push(document.getElementById(`tx2_${label}`).value);
+    }
+    const csvData = [
+        labels,
+        ['Tx1', ...tx1Data],
+        ['Tx2', ...tx2Data]
+    ];
+    const csv = Papa.unparse(csvData);
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'data.csv');
+});
+</script>
+
+</body>
+</html>

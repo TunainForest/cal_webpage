@@ -37,15 +37,15 @@
             display: flex;
             justify-content: center;
         }
-        #gp-input {
-            flex: 3;
+        #lg-input, #ag-input {
+            flex: 2;
             margin: 5px;
         }
         #gp-calculate {
             flex: 1;
             margin: 5px;
         }
-        #loc-input1, #loc-input2, #loc-calculate {
+        #loc-input1, #loc-input2, #loc-input3, #loc-calculate {
             flex: 1;
             margin: 5px;
         }
@@ -91,17 +91,19 @@
             <img src="img/cal_height_gp.png" alt="GP의 전파고도제한">
             <div class="formula">
                 <p>- 사용공식 -</p>
-                <p>GP전파제한높이 = tan0.67˚×(Lg-800)</p>
+                <p>GP전파제한높이 = tan0.67˚×(Lg-800)+ag</p>
                 <ul style="list-style-type: none;"> <!-- list-style-type을 none으로 설정하여 점을 제거 -->
                     <li>Lg: GP에서 건축물까지의 거리</li>
+                    <li>ag: GP 안테나 해발고도</li>
                     <li>* ICAO ANNEX, EURO DOC 015 Building Restricted Area</li>
                 </ul>
             </div>
             <div class="input-container">
-                <input type="text" id="gp-input" placeholder="Lg 입력">
+                <input type="text" id="lg-input" placeholder="Lg(m)">
+                <input type="text" id="ag-input" placeholder="ag(m)">
                 <button id="gp-calculate" class="btn-calculate">CAL</button>
             </div>
-            <div class="result">GP 계산 결과</div>
+            <div class="result">계산 결과</div>
             <div id="gp-result" class="result-value">
                 <!-- GP 결과를 출력할 공간 -->
             </div>
@@ -113,19 +115,21 @@
             <img src="img/cal_height_loc.png" alt="LOC의 전파고도제한"> <!-- 이 경로를 적절하게 설정해 주세요 -->
             <div class="formula">
                 <p>- 사용공식 -</p>
-                <p>LOC전파제한높이 = tan0.67˚×(Ld-La)</p> <!-- 공식을 적절하게 설정해 주세요 -->
+                <p>LOC전파제한높이 = tan0.67˚×(Ld-La)</p>
                 <ul style="list-style-type: none;"> <!-- list-style-type을 none으로 설정하여 점을 제거 -->
                     <li>Ld: LOC에서 건축물까지의 거리</li>
                     <li>La: 활주로종단+ANT까지의 거리</li>
+                    <li>al: LOC 안테나 해발고도</li>
                     <li>* ICAO ANNEX, EURO DOC 015 Building Restricted Area</li>
                 </ul>
             </div>
             <div class="input-container">
-                <input type="text" id="loc-input1" placeholder="Ld 입력">
-                <input type="text" id="loc-input2" placeholder="La 입력">
+                <input type="text" id="loc-input1" placeholder="Ld(m)">
+                <input type="text" id="loc-input2" placeholder="La(m)">
+                <input type="text" id="loc-input3" placeholder="al(m)">
                 <button id="loc-calculate" class="btn-calculate">CAL</button>
             </div>
-            <div class="result">LOC 계산 결과</div>
+            <div class="result">계산 결과</div>
             <div id="loc-result" class="result-value">
                 <!-- LOC 결과를 출력할 공간 -->
             </div>
@@ -134,18 +138,21 @@
     <script>
         // GP 계산 함수
         function calculateGP() {
-            var Lg = parseFloat(document.querySelector("#gp-input").value);
-            var result = Math.tan(0.67 * (Math.PI / 180)) * (Lg - 800);
+            var lg = parseFloat(document.querySelector("#lg-input").value);
+            var ag = parseFloat(document.querySelector("#ag-input").value);
+            var radian = 0.67 * (Math.PI / 180);
+            var result = Math.tan(radian) * (lg - 800) + ag;
             console.log("GP 계산 실행");  // 로그 추가
-            document.querySelector("#gp-result").innerText = "GP전파제한높이: " + result.toFixed(2) + " m";
+            document.querySelector("#gp-result").innerText = "GP전파제한고도: 해발 " + result.toFixed(2) + " m";
         }
         // LOC 계산 함수
         function calculateLOC() {
             var Ld = parseFloat(document.querySelector("#loc-input1").value);
             var La = parseFloat(document.querySelector("#loc-input2").value);
-            var result = Math.tan(0.67 * (Math.PI / 180)) * (Ld - La);
+            var al = parseFloat(document.querySelector("#loc_input3").value);
+            var result = Math.tan(0.67 * (Math.PI / 180)) * (Ld - La) + al;
             console.log("LOC 계산 실행");  // 로그 추가
-            document.querySelector("#loc-result").innerText = "LOC전파제한높이: " + result.toFixed(2) + " m";
+            document.querySelector("#loc-result").innerText = "LOC전파제한고도: 해발" + result.toFixed(2) + " m";
         }
         // 버튼 이벤트 설정
         document.querySelector("#gp-calculate").addEventListener("click", calculateGP);

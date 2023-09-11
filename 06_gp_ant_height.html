@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GP ANT height</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* 전체에 적용되는 기본 스타일 */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Body 스타일 */
+      body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* 컨테이너 스타일 */
+      #container {
+        width: 100%;
+        max-width: 2000px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      /* 각 섹션에 대한 스타일 */
+      .section {
+        margin-bottom: 20px;
+      }
+
+      /* 제목 스타일 */
+      .title {
+        background-color: #a7b0ff;
+        text-align: center;
+        font-weight: bold;
+        font-size: 28px; /* 폰트 크기 증가 */
+        line-height: 1.5;
+        padding: 15px;
+      }
+
+      /* 내용 부분 스타일 */
+      .content {
+        background-color: #f2ebff;
+        padding: 10px;
+      }
+
+      /* 공식 제목 스타일 */
+      .formula-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px; /* 폰트 크기 증가 */
+      }
+
+      /* 공식 스타일 */
+      .formula {
+        text-align: center;
+        font-style: italic;
+        font-size: 18px;
+      }
+
+      /* 입력 필드와 버튼 그룹 스타일 */
+      .input-group {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px;
+        padding: 0;
+      }
+
+      /* 입력 필드 스타일 */
+      .input-group input,
+      .input-group button {
+        width: 25%;
+        margin-right: 1%;
+        min-height: 40px; /* 크기 증가 */
+        font-size: 18px;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      /* 마지막 입력 필드의 margin-right 값을 0으로 설정 */
+      .input-group input:last-child {
+        margin-right: 0;
+      }
+
+      /* 결과 제목 스타일 */
+      .result-title {
+        background-color: #ccd1ff;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 5px;
+        font-size: 20px; /* 폰트 크기 증가 */
+      }
+
+      /* 결과 스타일 */
+      .result {
+        background-color: #f2ebff;
+        font-weight: bold;
+        color: #3e0202;
+        min-height: 40px;
+        padding-left: 15px;
+        font-size: 18px; /* 폰트 크기 증가 */
+      }
+      /* 이미지 스타일 */
+      .content img {
+        max-width: 100%; /* 최대 폭을 부모 요소의 100%로 설정 */
+        height: auto; /* 높이는 자동으로 설정 */
+      }
+      #input3,
+      #button1,
+      #input5,
+      #button2 {
+        margin-right: 0;
+      }
+      .input-group input::placeholder {
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <!-- GP의 전파제한고도 Section -->
+      <div class="section">
+        <h1 class="title">GP 안테나 높이 산출</h1>
+        <div class="content">
+          <img src="img/gp_ant.png" alt="GP Image" />
+          <p class="formula-title">- 사용공식 -</p>
+          <div class="formula">
+            <p>MID 안테나 높이 HM(m) = 150/(sin(θ°-S°)xF(MHz))</p>
+            <p>UPP안테나 높이 HU = HM x 1.5</p>
+            <p>LOW안테나 높이 HL = HM x 0.5</p>
+          </div>
+          <div class="input-group">
+            <input type="number" id="input1" placeholder="θ(°)" />
+            <input type="number" id="input2" placeholder="S(°)" />
+            <input type="number" id="input3" placeholder="F(MHz)" />
+            <button id="button1">CAL</button>
+          </div>
+        </div>
+        <h2 class="result-title">계산 결과</h2>
+        <div class="result" id="result1"></div>
+      </div>
+    </div>
+    <script>
+      document.getElementById("button1").addEventListener("click", function () {
+        try {
+          let theta = parseFloat(document.getElementById("input1").value);
+          let s = parseFloat(document.getElementById("input2").value);
+          let f = parseFloat(document.getElementById("input3").value);
+
+          let radian = (Math.PI / 180) * (theta - s);
+          let hm = 150 / (Math.sin(radian) * f);
+          let hu = hm * 1.5;
+          let hl = hm * 0.5;
+
+          document.getElementById("result1").innerHTML = `▶ HU = ${hu.toFixed(3)} m<br>▶ HM= ${hm.toFixed(3)} m<br>▶ HL = ${hl.toFixed(3)} m`;
+
+        } catch (e) {
+          document.getElementById("result1").textContent =
+            "Error in calculation!";
+        }
+      });
+    </script>
+  </body>
+</html>

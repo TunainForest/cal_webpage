@@ -180,8 +180,8 @@
     <script>
       document.getElementById("button1").addEventListener("click", function () {
         try {
-          let w = parseFloat(document.getElementById("input1").value);
-          let sg = parseFloat(document.getElementById("input2").value);
+          let w = parseFloat(document.getElementById("input2").value);
+          let sg = parseFloat(document.getElementById("input1").value);
           let ratio_w = w / 0.7;
           let result1 = 20 * Math.log10(w / 0.7);
           let result2 = sg * Math.pow(ratio_w, 2);

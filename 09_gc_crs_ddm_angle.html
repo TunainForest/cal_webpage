@@ -146,10 +146,10 @@
         // 입력값 가져오기
         const left = parseFloat(document.getElementById("input1").value);
         const right = parseFloat(document.getElementById("input2").value);
-        const fw = parseFloat(document.getElementById("input2").value);
+        const fw = parseFloat(document.getElementById("input3").value);
 
         // 계산 수행
-        const abs_left = abs(left);
+        const abs_left = Math.abs(left);
         const calculationDeg = 0.31 / (abs_left + right) * fw;
 
         // 결과 출력

@@ -64,28 +64,29 @@
       /* 입력 필드와 버튼 그룹 스타일 */
       .input-group {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         margin: 5px;
+        padding: 0;
       }
 
       /* 입력 필드 스타일 */
-      .input-group input {
-        flex: 1;
-        margin-right: 3px;
-        min-height: 50px; /* 크기 증가 */
-        font-size: 20px;
+      .input-group input,
+      .input-group button {
+        width: 31%;
+        margin-right: 1.5%;
+        min-height: 40px; /* 크기 증가 */
+        font-size: 18px;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #input2, #button1 {
+        margin-right: 0;
+
       }
 
       /* 마지막 입력 필드의 margin-right 값을 0으로 설정 */
       .input-group input:last-child {
         margin-right: 0;
-      }
-
-      /* 버튼 스타일 */
-      .input-group button {
-        flex: 1;
-        min-height: 50px; /* 크기 증가 */
-        font-size: 20px; /* 폰트 크기 증가 */
       }
 
       /* 결과 제목 스타일 */
@@ -111,12 +112,15 @@
         max-width: 100%; /* 최대 폭을 부모 요소의 100%로 설정 */
         height: auto; /* 높이는 자동으로 설정 */
       }
+      #input2, #button1, #input5, #button2{
+        margin-right: 0;
+      }
       @media (max-width: 600px) {
-        #input3, #input4, #input5 {
-          flex: 0.8; /* 입력 필드의 크기를 줄입니다 */
+        #input3, #input4, #input5, #button2 {
+          width: 23.5%; /* 입력 필드의 크기를 줄입니다 */
         }
-        #button2 {
-          flex: 1.4; /* 버튼의 크기를 더 크게 합니다 */
+        #input5, #button2{
+          margin-right: 0;
         }
       }
     </style>
@@ -180,7 +184,6 @@
 
         // 계산 로직
         const calculation = Math.tan(Math.toRadians(0.67)) * (dg - 800) + ag;
-
         // 결과 출력
         document.getElementById(
           "result1"

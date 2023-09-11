@@ -1,151 +1,240 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Adjust CRS and Path width by using DDM</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <title>CRS/Path width Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
-        /* CSS Styles */
-        .container {
-            width: 100%;
-            padding: 10px;
-        }
-        .header {
-            background-color: #A7B0FF;
-            text-align: center;
-            font-weight: bold;
-            font-size: 25px;
-            padding: 10px;
-        }
-        .content {
-            background-color: #F2EBFF;
-            padding: 20px;
-        }
-        .content img {
-            width: 100%;
-            height: auto;
-            max-width: 1000px;
-            display: block;
-            margin: auto;
-        }
-        .formula {
-            text-align: center;
-            font-style: italic;
-            padding: 10px;
-            font-size: 20px;
-        }
-        .input-container {
-            display: flex;
-            justify-content: center;
-        }
-        #wp-input, #wc-input {
-            flex: 3;
-            margin: 5px;
-        }
-        #wp-calculate, #wc-calculate {
-            flex: 1;
-            margin: 5px;
-        }
-        input[type="text"], .btn-calculate {
-            display: inline-block;
-            margin: 5px;
-        }
-        input[type="text"] {
-            width: 100px;
-            height: 40px;
-            font-size: 20px;
-        }
-        .result {
-            background-color: #ccd1ff;
-            text-align: center;
-            font-weight: bold;
-            font-size: 20px;
-            padding: 10px;
-        }
-        .result-value {
-            background-color: #F2EBFF;
-            padding: 30px;
-            text-align: center;
-            font-weight: bold;
-            font-size:25px;
-        }
-        .btn-calculate {
-            width: 100px;
-            height: 40px;
-            background-color: #4285F4;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <!-- Path Width Section -->
-        <div class="header">1. GP-SBO출력으로 Path width 조정</div>
-        <div class="content">
-            <div class="formula">
-                <p>- 사용공식 -</p>
-                <p>조정값 = 20 x log10(wp/0.7)</p>
-                <ul style="list-style-type: none;"> <!-- list-style-type을 none으로 설정하여 점을 제거 -->
-                    <li>wp: 현재 path width 값 </li>
-                </ul>
-            </div>
-            <div class="input-container">
-                <input type="text" id="wp-input" placeholder="wp 입력">
-                <button id="wp-calculate" class="btn-calculate">CAL</button>
-            </div>
-            <div class="result">계산 결과</div>
-            <div id="wp-result" class="result-value">
-                <!-- Path Width 결과를 출력할 공간 -->
-            </div>
-        </div>
+      /* 전체에 적용되는 기본 스타일 */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        <!-- CRS width Section -->
-        <div class="header">2. LOC-SBO출력으로 CRS width 조정</div>
+      /* Body 스타일 */
+      body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* 컨테이너 스타일 */
+      #container {
+        width: 100%;
+        max-width: 2000px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      /* 각 섹션에 대한 스타일 */
+      .section {
+        margin-bottom: 20px;
+      }
+
+      /* 제목 스타일 */
+      .title {
+        background-color: #a7b0ff;
+        text-align: center;
+        font-weight: bold;
+        font-size: 22px; /* 폰트 크기 증가 */
+        line-height: 1.5;
+        padding: 15px;
+      }
+
+      /* 내용 부분 스타일 */
+      .content {
+        background-color: #f2ebff;
+        padding: 10px;
+      }
+
+      /* 공식 제목 스타일 */
+      .formula-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 20px; /* 폰트 크기 증가 */
+      }
+
+      /* 공식 스타일 */
+      .formula {
+        text-align: center;
+        font-style: italic;
+        font-size: 18px;
+      }
+
+      /* 입력 필드와 버튼 그룹 스타일 */
+      .input-group {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px;
+        padding: 0;
+      }
+
+      /* 입력 필드 스타일 */
+      .input-group input,
+      .input-group button {
+        width: 33%;
+        margin-right: 1.5%;
+        min-height: 40px; /* 크기 증가 */
+        font-size: 18px;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #input2,
+      #button1 {
+        margin-right: 0;
+      }
+
+      /* 마지막 입력 필드의 margin-right 값을 0으로 설정 */
+      .input-group input:last-child {
+        margin-right: 0;
+      }
+
+      /* 결과 제목 스타일 */
+      .result-title {
+        background-color: #ccd1ff;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 5px;
+        font-size: 20px; /* 폰트 크기 증가 */
+      }
+
+      /* 결과 스타일 */
+      .result {
+        background-color: #f2ebff;
+        font-weight: bold;
+        color: #3e0202;
+        min-height: 40px;
+        padding-left: 15px;
+        font-size: 18px; /* 폰트 크기 증가 */
+      }
+      #input2,
+      #button1,
+      #input5,
+      #button2 {
+        margin-right: 0;
+      }
+      @media (max-width: 600px) {
+        #input3,
+        #input4,
+        #input5,
+        #button2 {
+          width: 25%; /* 입력 필드의 크기를 줄입니다 */
+        }
+        #input5,
+        #button2 {
+          margin-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <!-- GP path width 계산 Section -->
+      <div class="section">
+        <h1 class="title">1. GP-SBO 출력으로 Path width 조정</h1>
         <div class="content">
-            <div class="formula">
-                <p>- 사용공식 -</p>
-                <p>조정값 = 20 x log10(wc/0.7)</p> <!-- 공식을 적절하게 설정해 주세요 -->
-                <ul style="list-style-type: none;"> <!-- list-style-type을 none으로 설정하여 점을 제거 -->
-                    <li>wc: 현재 CRS width 값</li>
-                </ul>
-            </div>
-            <div class="input-container">
-                <input type="text" id="wc-input" placeholder="wc 입력">
-                <button id="wc-calculate" class="btn-calculate">CAL</button>
-            </div>
-            <div class="result">계산 결과</div>
-            <div id="wc-result" class="result-value">
-                <!-- CRS width 결과를 출력할 공간 -->
-            </div>
+          <p class="formula-title">- 사용공식 -</p>
+          <div class="formula">
+            <p>조정값(dB) = 20 x log10 (w/0.7)</p>
+            <p>조정값(W) = SBO출력(W) x (w/0.7)^2</p>
+            <p>* w = 현재 width 값(°)</p>
+          </div>
+          <div class="input-group">
+            <input type="number" id="input1" placeholder="SBO출력(W)" />
+            <input type="number" id="input2" placeholder="w(°)" />
+            <button id="button1">CAL</button>
+          </div>
         </div>
+        <h2 class="result-title">계산 결과</h2>
+        <div class="result" id="result1"></div>
+      </div>
+
+      <!-- LOC course width 계산 Section -->
+      <div class="section">
+        <h1 class="title">2. LOC-SBO 출력으로 CRS width 조정</h1>
+        <div class="content">
+          
+          <p class="formula-title">- 사용공식 -</p>
+          <!-- 공식과 설명 -->
+          <div class="formula">
+            <p>조정값(dB) = 20 x log10 (w/wl)</p>
+            <p>조정값(W) = SBO출력(W) x (w/wl)^2</p>
+            <p>* w = 현재 width 값(°)</p>
+            <p>* wl = LOC의 width(울산공항 : 5.48°)</p>
+          </div>
+
+          <div class="input-group">
+            <input type="number" id="input3" placeholder="SBO출력(W)" />
+            <input type="number" id="input4" placeholder="w(°)" />
+            <input type="number" id="input5" placeholder="wl(°)" />
+            <button id="button2">CAL</button>
+          </div>
+        </div>
+        <h2 class="result-title">계산 결과</h2>
+        <div class="result" id="result2"></div>
+      </div>
     </div>
     <script>
-        // Path Width 계산 함수
-        function calculateWp() {
-            var wp = parseFloat(document.querySelector("#wp-input").value);
-            var result = Math.abs(20 * Math.log10(wp / 0.7));
-            if (wp > 0.7) {
-                document.querySelector("#wp-result").innerText = "SBO 출력을 " + result.toFixed(3) + "dB 만큼 높게 설정하세요.";
-            } else {
-                document.querySelector("#wp-result").innerText = "SBO 출력을 " + result.toFixed(3) + "dB 만큼 낮게 설정하세요.";
-            }
-        }
-        // CRS width 계산 함수
-        function calculateWc() {
-            var wc = parseFloat(document.querySelector("#wc-input").value);
-            var result = Math.abs(20 * Math.log10(wc / 0.7));
-            if (wc > 0.7) {
-                document.querySelector("#wc-result").innerText = "SBO 출력을 " + result.toFixed(3) + "dB 만큼 높게 설정하세요.";
-            } else {
-                document.querySelector("#wc-result").innerText = "SBO 출력을 " + result.toFixed(3) + "dB 만큼 낮게 설정하세요.";
-            }
-        }
+      document.getElementById("button1").addEventListener("click", function () {
+        try {
+          let w = parseFloat(document.getElementById("input1").value);
+          let sg = parseFloat(document.getElementById("input2").value);
+          let ratio_w = w / 0.7;
+          let result1 = 20 * Math.log10(w / 0.7);
+          let result2 = sg * Math.pow(ratio_w, 2);
 
-        // 버튼 이벤트 설정
-        document.querySelector("#wp-calculate").addEventListener("click", calculateWp);
-        document.querySelector("#wc-calculate").addEventListener("click", calculateWc);
+          if (w >= 0.7) {
+            document.getElementById(
+              "result1"
+            ).innerHTML = `▶ SBO출력 ${result1.toFixed(
+              3
+            )} dB 상향 조정하세요.<br>▶ SBO출력 ${result2.toFixed(
+              3
+            )} W 로 상향 조정하세요.`;
+          } else {
+            document.getElementById(
+              "result1"
+            ).innerHTML = `▶ SBO출력 ${result1.toFixed(
+              3
+            )} dB 하향 조정하세요.<br>▶ SBO출력 ${result2.toFixed(
+              3
+            )} W 로 하향 조정하세요.`;
+          }
+        } catch (e) {
+          document.getElementById("result1").textContent = "";
+        }
+      });
+
+      document.getElementById("button2").addEventListener("click", function () {
+        try {
+          let sl = parseFloat(document.getElementById("input3").value);
+          let w = parseFloat(document.getElementById("input4").value);
+          let wl = parseFloat(document.getElementById("input5").value);
+          let ratio_w = w / wl;
+          let result1 = 20 * Math.log10(w / wl);
+          let result2 = sl * Math.pow(ratio_w, 2);
+
+          if (w >= wl) {
+            document.getElementById(
+              "result2"
+            ).innerHTML = `▶ SBO출력 ${result1.toFixed(
+              3
+            )} dB 상향 조정하세요.<br>▶ SBO출력 ${result2.toFixed(
+              3
+            )} W 로 상향 조정하세요.`;
+          } else {
+            document.getElementById(
+              "result2"
+            ).innerHTML = `▶ SBO출력 ${result1.toFixed(
+              3
+            )} dB 하향 조정하세요.<br>▶ SBO출력 ${result2.toFixed(
+              3
+            )} W 로 하향 조정하세요.`;
+          }
+        } catch (e) {
+          document.getElementById("result2").textContent = "";
+        }
+      });
     </script>
-</body>
+  </body>
 </html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unit Conversion</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .header {
+        background-color: #ccd1ff;
+        text-align: center;
+        font-weight: bold;
+        padding: 15px 0;
+        margin-bottom: 20px;
+      }
+
+      .choice-group {
+        margin: 10px 0;
+      }
+
+      .choice {
+        font-size: 18px;
+        font-style: italic;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .sub-choice-group {
+        display: flex;
+        margin-left: 30px;
+        margin-bottom: 10px;
+      }
+
+      .sub-choice {
+        flex: 1;
+      }
+
+      .result {
+        font-size: 18px;
+        padding: 8px;
+        margin-top: 10px;
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">각종 단위 변환</div>
+    <!-- Choice 1 -->
+    <div class="choice-group">
+      <label class="choice"
+        ><input type="radio" name="unit_conversion" value="nm_km" /> NM ↔
+        km</label
+      >
+      <div class="sub-choice-group">
+        <label class="sub-choice">
+          <input
+            type="radio"
+            name="direction1"
+            value="nm_to_km"
+            id="nm_to_km"
+          />
+          NM → KM
+        </label>
+        <label class="sub-choice">
+          <input
+            type="radio"
+            name="direction1"
+            value="km_to_nm"
+            id="km_to_nm"
+          />
+          KM → NM
+        </label>
+      </div>
+      <input type="text" id="choice1_input" />
+      <button id="calculate_choice1">CAL</button>
+      <div id="result_choice1" class="result"></div>
+    </div>
+    <!-- Choice 2 -->
+    <div class="choice-group">
+      <label class="choice"
+        ><input type="radio" name="unit_conversion" value="inch_cm" /> inch ↔
+        cm</label
+      >
+      <div class="sub-choice-group">
+        <label class="sub-choice">
+          <input
+            type="radio"
+            name="direction2"
+            value="inch_to_cm"
+            id="inch_to_cm"
+          />
+          inch → cm
+        </label>
+        <label class="sub-choice">
+          <input
+            type="radio"
+            name="direction2"
+            value="cm_to_inch"
+            id="cm_to_inch"
+          />
+          cm → inch
+        </label>
+      </div>
+      <input type="text" id="choice2_input" />
+      <button id="calculate_choice2">CAL</button>
+      <div id="result_choice2" class="result"></div>
+    </div>
+    <!-- Choice 3 -->
+    <div class="choice-group">
+      <label class="choice"
+        ><input type="radio" name="unit_conversion" value="ft_m" /> ft ↔
+        m</label
+      >
+      <div class="sub-choice-group">
+        <label class="sub-choice">
+          <input type="radio" name="direction3" value="ft_to_m" id="ft_to_m" />
+          ft → m
+        </label>
+        <label class="sub-choice">
+          <input type="radio" name="direction3" value="m_to_ft" id="m_to_ft" />
+          m → ft
+        </label>
+      </div>
+      <input type="text" id="choice3_input" />
+      <button id="calculate_choice3">CAL</button>
+      <div id="result_choice3" class="result"></div>
+    </div>
+    <!-- Choice 4 -->
+    <div class="choice-group">
+      <label class="choice"
+        ><input type="radio" name="unit_conversion" value="%ddm_ddm" /> %DDM ↔
+        DDM</label
+      >
+      <div class="sub-choice-group">
+        <label class="sub-choice">
+          <input
+            type="radio"
+            name="direction4"
+            value="%ddm_to_ddm"
+            id="%ddm_to_ddm"
+          />
+          %DDM → DDM
+        </label>
+        <label class="sub-choice">
+          <input
+            type="radio"
+            name="direction4"
+            value="ddm_to_%ddm"
+            id="ddm_to_%ddm"
+          />
+          DDM → %DDM
+        </label>
+      </div>
+      <input type="text" id="choice4_input" />
+      <button id="calculate_choice4">CAL</button>
+      <div id="result_choice4" class="result"></div>
+    </div>
+    <!-- Choice 5 -->
+    <div class="choice-group">
+      <label class="choice"
+        ><input type="radio" name="unit_conversion" value="dbm_mw" /> dBm ↔
+        mW</label
+      >
+      <div class="sub-choice-group">
+        <label class="sub-choice">
+          <input
+            type="radio"
+            name="direction5"
+            value="dbm_to_mw"
+            id="dbm_to_mw"
+          />
+          dBm → mW
+        </label>
+        <label class="sub-choice">
+          <input
+            type="radio"
+            name="direction5"
+            value="mw_to_dbm"
+            id="mw_to_dbm"
+          />
+          mW → dBm
+        </label>
+      </div>
+      <input type="text" id="choice5_input" />
+      <button id="calculate_choice5">CAL</button>
+      <div id="result_choice5" class="result"></div>
+    </div>
+
+    <script>
+      let radioButtons = document.querySelectorAll(
+        'input[name="unit_conversion"]'
+      );
+      let choiceLayouts = [
+        document.getElementById("result_choice1"),
+        document.getElementById("result_choice2"),
+        document.getElementById("result_choice3"),
+        document.getElementById("result_choice4"),
+        document.getElementById("result_choice5"),
+      ];
+
+      radioButtons.forEach((radio, index) => {
+        radio.addEventListener("change", function (event) {
+          choiceLayouts.forEach((layout, layoutIndex) => {
+            // Hide all result divs and show the relevant result div based on the selected radio button
+            layout.style.display = index === layoutIndex ? "block" : "none";
+          });
+        });
+      });
+
+      // Choice1 Calculation
+      let calculateChoice1 = document.getElementById("calculate_choice1");
+      calculateChoice1.addEventListener("click", function () {
+        let input = parseFloat(document.getElementById("choice1_input").value);
+        let result;
+        let resultMessage;
+        let selectedDirection = document.querySelector(
+          'input[name="direction1"]:checked'
+        ).value;
+        if (selectedDirection === "nm_to_km") {
+          result = input * 1.852;
+          resultMessage = `${input.toFixed(2)} NM = ${result.toFixed(2)} km`;
+        } else {
+          result = input / 1.852;
+          resultMessage = `${input.toFixed(2)} km = ${result.toFixed(2)} NM`;
+        }
+        document.getElementById("result_choice1").innerText = resultMessage;
+      });
+
+      // Choice2 Calculation
+      let calculateChoice2 = document.getElementById("calculate_choice2");
+      calculateChoice2.addEventListener("click", function () {
+        let input = parseFloat(document.getElementById("choice2_input").value);
+        let result;
+        let resultMessage;
+        let selectedDirection = document.querySelector(
+          'input[name="direction2"]:checked'
+        ).value;
+        if (selectedDirection === "inch_to_cm") {
+          result = input * 2.54;
+          resultMessage = `${input.toFixed(2)} inch = ${result.toFixed(2)} cm`;
+        } else {
+          result = input / 2.54;
+          resultMessage = `${input.toFixed(2)} cm = ${result.toFixed(2)} inch`;
+        }
+        document.getElementById("result_choice2").innerText = resultMessage;
+      });
+
+      // Choice3 Calculation
+      let calculateChoice3 = document.getElementById("calculate_choice3");
+      calculateChoice3.addEventListener("click", function () {
+        let input = parseFloat(document.getElementById("choice3_input").value);
+        let result;
+        let resultMessage;
+        let selectedDirection = document.querySelector(
+          'input[name="direction3"]:checked'
+        ).value;
+        if (selectedDirection === "ft_to_m") {
+          result = input * 0.3048;
+          resultMessage = `${input.toFixed(2)} ft = ${result.toFixed(2)} m`;
+        } else {
+          result = input / 0.3048;
+          resultMessage = `${input.toFixed(2)} m = ${result.toFixed(2)} ft`;
+        }
+        document.getElementById("result_choice3").innerText = resultMessage;
+      });
+
+      // Choice4 Calculation
+      let calculateChoice4 = document.getElementById("calculate_choice4");
+      calculateChoice4.addEventListener("click", function () {
+        let input = parseFloat(document.getElementById("choice4_input").value);
+        let result;
+        let resultMessage;
+        let selectedDirection = document.querySelector(
+          'input[name="direction4"]:checked'
+        ).value;
+        if (selectedDirection === "%ddm_to_ddm") {
+          result = input / 100;
+          resultMessage = `${input.toFixed(2)} %DDM = ${result.toFixed(4)} DDM`;
+        } else {
+          result = input * 100;
+          resultMessage = `${input.toFixed(4)} DDM = ${result.toFixed(2)} %DDM`;
+        }
+        document.getElementById("result_choice4").innerText = resultMessage;
+      });
+
+      // Choice5 Calculation
+      let calculateChoice5 = document.getElementById("calculate_choice5");
+      calculateChoice5.addEventListener("click", function () {
+        let input = parseFloat(document.getElementById("choice5_input").value);
+        let result;
+        let resultMessage;
+        let selectedDirection = document.querySelector(
+          'input[name="direction5"]:checked'
+        ).value;
+        if (selectedDirection === "dbm_to_mw") {
+          result = Math.pow(10, input / 10);
+          resultMessage = `${input.toFixed(2)} dBm = ${result.toFixed(2)} mW`;
+        } else {
+          result = 10 * Math.log10(input);
+          resultMessage = `${input.toFixed(2)} mW = ${result.toFixed(2)} dBm`;
+        }
+        document.getElementById("result_choice5").innerText = resultMessage;
+      });
+    </script>
+  </body>
+</html>

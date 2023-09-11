@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Height Calculator_VOR</title>
+    <link rel="icon" type="image/png" sizes="48x48" href="img/icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       /* 전체에 적용되는 기본 스타일 */
@@ -141,15 +142,15 @@
           <img src="img/vor_height.png" alt="vor_height Image" />
           <p class="formula-title">- 사용공식 -</p>
           <div class="formula">
-            <p>H = Lv x tan(1°)+av</p>
-            <p>Lv: VOR 안테나에서 건축물까지의 거리</p>
+            <p>H = Dv x tan(1°)+Hv</p>
+            <p>Dv: VOR 안테나에서 건축물까지의 거리</p>
             <p>H: VOR의 전파고도제한 높이(m)</p>
-            <p>av: VOR 안테나의 해발고도(울산공항: 18.776m)</p>
+            <p>Hv: VOR 안테나의 해발고도(울산공항: 18.776m)</p>
             <p>* ICAO ANNEX, EURO DOC 015 Building Restricted Area</p>
           </div>
           <div class="input-group">
-            <input type="number" id="input1" placeholder="Lv(m)" />
-            <input type="number" id="input2" placeholder="av(m)" />
+            <input type="number" id="input1" placeholder="Dv(m)" />
+            <input type="number" id="input2" placeholder="Hv(m)" />
             <button id="button1">CAL</button>
           </div>
         </div>

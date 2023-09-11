@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Height Calculator</title>
+    <link rel="icon" type="image/png" sizes="48x48" href="img/icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
       /* 전체에 적용되는 기본 스타일 */
@@ -134,14 +135,14 @@
           <img src="img/cal_height_gp.png" alt="GP Image" />
           <p class="formula-title">- 사용공식 -</p>
           <div class="formula">
-            <p>GP전파제한높이 = tan0.67°×(Lg-800)+ag</p>
-            <p>Lg: GP에서 건축물까지 거리</p>
-            <p>ag: GP 안테나 해발고도 ex)울산공항: 7.663 m</p>
+            <p>GP전파제한높이 = tan0.67°×(Dg-800)+Hg</p>
+            <p>Dg: GP에서 건축물까지 거리</p>
+            <p>Hg: GP 안테나 해발고도 ex)울산공항: 7.663 m</p>
             <p>* ICAO ANNEX, EURO DOC 015 Building Restricted Area</p>
           </div>
           <div class="input-group">
-            <input type="number" id="input1" placeholder="Lg(m)" />
-            <input type="number" id="input2" placeholder="ag(m)" />
+            <input type="number" id="input1" placeholder="Dg(m)" />
+            <input type="number" id="input2" placeholder="Hg(m)" />
             <button id="button1">CAL</button>
           </div>
         </div>
@@ -157,17 +158,17 @@
           <p class="formula-title">- 사용공식 -</p>
           <!-- 공식과 설명 -->
           <div class="formula">
-            <p>LOC전파제한높이 = tan0.67°×(Ld-La)+al</p>
-            <p>Ld: LOC에서 건축물까지 거리</p>
-            <p>La: 활주로종단+ANT까지의 거리</p>
-            <p>al: LOC 안테나 해발고도 ex)울산공항: 7.663 m</p>
+            <p>LOC전파제한높이 = tan0.67°×(Dl-Dr)+Hl</p>
+            <p>Dl: LOC에서 건축물까지 거리</p>
+            <p>Dr: 활주로종단+ANT까지의 거리</p>
+            <p>Hl: LOC 안테나 해발고도 ex)울산공항: 7.663 m</p>
             <p>* ICAO ANNEX, EURO DOC 015 Building Restricted Area</p>
           </div>
 
           <div class="input-group">
-            <input type="number" id="input3" placeholder="Ld(m)" />
-            <input type="number" id="input4" placeholder="La(m)" />
-            <input type="number" id="input5" placeholder="al(m)" />
+            <input type="number" id="input3" placeholder="Dl(m)" />
+            <input type="number" id="input4" placeholder="Dr(m)" />
+            <input type="number" id="input5" placeholder="Hl(m)" />
             <button id="button2">CAL</button>
           </div>
         </div>

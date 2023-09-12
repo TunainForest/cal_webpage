@@ -142,15 +142,14 @@
           <img src="img/vor_height.png" alt="vor_height Image" />
           <p class="formula-title">- 사용공식 -</p>
           <div class="formula">
-            <p>H = Dv x tan(1°)+Hv</p>
-            <p>Dv: VOR 안테나에서 건축물까지의 거리</p>
-            <p>H: VOR의 전파고도제한 높이(m)</p>
-            <p>Hv: VOR 안테나의 해발고도(울산공항: 18.776m)</p>
+            <p>VOR 전파제한고도 = D x tan(1°)+ H</p>
+            <p>D: VOR 안테나에서 건축물까지의 거리</p>
+            <p>H: VOR 안테나의 해발고도 ex)울산공항: 18.776m</p>
             <p>* ICAO ANNEX, EURO DOC 015 Building Restricted Area</p>
           </div>
           <div class="input-group">
-            <input type="number" id="input1" placeholder="Dv(m)" />
-            <input type="number" id="input2" placeholder="Hv(m)" />
+            <input type="number" id="input1" placeholder="D(m)" />
+            <input type="number" id="input2" placeholder="H(m)" />
             <button id="button1">CAL</button>
           </div>
         </div>

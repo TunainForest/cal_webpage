@@ -139,13 +139,13 @@
         <div class="content">
           <p class="formula-title">- 사용공식 -</p>
           <div class="formula">
-            <p>조정값[dB] = 20 x log10 (wG/0.7)</p>
-            <p>조정값[mW] = SBO출력[mW] x (wG/0.7)^2</p>
-            <p>* wG = 현재 path width 값[°]</p>
+            <p>조정값[dB] = 20 x log10 (pw/0.7)</p>
+            <p>조정값[mW] = SBO출력[mW] x (pw/0.7)^2</p>
+            <p>* pw = 현재 path width 값[°]</p>
           </div>
           <div class="input-group">
             <input type="number" id="input1" placeholder="SBO출력(mW)" />
-            <input type="number" id="input2" placeholder="w(°)" />
+            <input type="number" id="input2" placeholder="pw(°)" />
             <button id="button1">CAL</button>
           </div>
         </div>
@@ -160,16 +160,16 @@
           <p class="formula-title">- 사용공식 -</p>
           <!-- 공식과 설명 -->
           <div class="formula">
-            <p>조정값[dB] = 20 x log10 (wL/wLC)</p>
-            <p>조정값[mW] = SBO출력[mW] x (wL/wLC)^2</p>
-            <p>* wL = 현재 CRS width 값(°)</p>
-            <p>* wLC = LOC의 CRS width(울산공항 : 5.48°)</p>
+            <p>조정값[dB] = 20 x log10 (cw1/cw2)</p>
+            <p>조정값[mW] = SBO출력[mW] x (cw1/cw2)^2</p>
+            <p>* cw1 = 현재 CRS width 값(°)</p>
+            <p>* cw2 = LOC의 CRS width(울산공항 : 5.48°)</p>
           </div>
 
           <div class="input-group">
             <input type="number" id="input3" placeholder="SBO출력(mW)" />
-            <input type="number" id="input4" placeholder="w(°)" />
-            <input type="number" id="input5" placeholder="wl(°)" />
+            <input type="number" id="input4" placeholder="cw1(°)" />
+            <input type="number" id="input5" placeholder="cw2(°)" />
             <button id="button2">CAL</button>
           </div>
         </div>

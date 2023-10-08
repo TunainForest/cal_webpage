@@ -148,11 +148,13 @@
             <div class="content">
                 <p class="formula-title">- 사용공식 -</p>
                 <div class="formula">
-                    <p>현재 DDM = 0.6000(CLR DDM %값) + (모니터의 CLR DDM값 / 100)</p>
+                    <p>현재 DDM = 표준치(DDM) + (모니터의 CLR DDM값 / 100)</p>
+                    <p>ex)울산공항 : 표준치 = 0.6000 DDM</p>
                     <p>* INDRA의 NM-7033/7034B전용 계산식</p>
                 </div>
                 <div class="input-group">
-                    <input type="number" id="input1" placeholder="CLR DDM(%) of GP" />
+                    <input type="number" id="input1" placeholder="표준치(DDM)" />
+                    <input type="number" id="input2" placeholder="CLR DDM(%)" />
                     <button id="button1">CAL</button>
                 </div>
             </div>
@@ -167,11 +169,13 @@
                 <p class="formula-title">- 사용공식 -</p>
                 <!-- 공식과 설명 -->
                 <div class="formula">
-                    <p>현재 DDM = 0.2800(CLR DDM %값) + (모니터의 CLR DDM값 / 100)</p>
+                    <p>현재 DDM = 표준치(DDM) + (모니터의 CLR DDM값 / 100)</p>
+                    <p>ex)울산공항 : 표준치 = 0.2800 DDM</p>
                     <p>* INDRA의 NM-7013/7014B전용 계산식</p>
                 </div>
                 <div class="input-group">
-                    <input type="number" id="input3" placeholder="CLR DDM(%) of LOC" />
+                    <input type="number" id="input3" placeholder="표준치(DDM)" />
+                    <input type="number" id="input4" placeholder="CLR DDM(%)" />
                     <button id="button2">CAL</button>
                 </div>
             </div>
@@ -182,8 +186,9 @@
     <script>
         document.getElementById("button1").addEventListener("click", function () {
             try {
-                let dg = parseFloat(document.getElementById("input1").value);
-                let calculation = 0.6000 + dg / 100;
+                let d = parseFloat(document.getElementById("input1").value);
+                let dg = parseFloat(document.getElementById("input2").value);
+                let calculation = d + dg / 100;
                 document.getElementById(
                     "result1"
                 ).textContent = `▶ GP CLR DDM의 값은 ${calculation.toFixed(
@@ -197,8 +202,9 @@
 
         document.getElementById("button2").addEventListener("click", function () {
             try {
-                let dl = parseFloat(document.getElementById("input3").value);
-                let calculation = 0.280 + dl / 100;
+                let d = parseFloat(document.getElementById("input3").value);
+                let dl = parseFloat(document.getElementById("input4").value);
+                let calculation = d + dl / 100;
                 document.getElementById(
                     "result2"
                 ).textContent = `▶ LOC CLR DDM의 값은 ${calculation.toFixed(

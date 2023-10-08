@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Height Calculator_VOR</title>
+    <link rel="icon" type="image/png" sizes="48x48" href="img/icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* 전체에 적용되는 기본 스타일 */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* Body 스타일 */
+      body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      /* 컨테이너 스타일 */
+      #container {
+        width: 100%;
+        max-width: 2000px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      /* 각 섹션에 대한 스타일 */
+      .section {
+        margin-bottom: 20px;
+      }
+
+      /* 제목 스타일 */
+      .title {
+        background-color: #a7b0ff;
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px; /* 폰트 크기 증가 */
+        line-height: 1.5;
+        padding: 15px;
+      }
+
+      /* 내용 부분 스타일 */
+      .content {
+        background-color: #f2ebff;
+        padding: 10px;
+      }
+
+      /* 공식 제목 스타일 */
+      .formula-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px; /* 폰트 크기 증가 */
+      }
+
+      /* 공식 스타일 */
+      .formula {
+        text-align: center;
+        font-style: italic;
+        font-size: 12px;
+      }
+
+      /* 입력 필드와 버튼 그룹 스타일 */
+      .input-group {
+        display: flex;
+        justify-content: space-between;
+        margin: 5px;
+        padding: 0;
+      }
+
+      /* 입력 필드 스타일 */
+      .input-group input,
+      .input-group button {
+        width: 31%;
+        margin-right: 1.5%;
+        min-height: 40px; /* 크기 증가 */
+        font-size: 18px;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      #button1 {
+        margin-right: 0;
+      }
+
+      /* 마지막 입력 필드의 margin-right 값을 0으로 설정 */
+      .input-group input:last-child {
+        margin-right: 0;
+      }
+
+      /* 결과 제목 스타일 */
+      .result-title {
+        background-color: #ccd1ff;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 5px;
+        font-size: 20px; /* 폰트 크기 증가 */
+      }
+
+      /* 결과 스타일 */
+      .result {
+        background-color: #f2ebff;
+        font-weight: bold;
+        color: #3e0202;
+        min-height: 40px;
+        padding-left: 15px;
+        font-size: 18px; /* 폰트 크기 증가 */
+      }
+      /* 이미지 스타일 */
+      .content img {
+        max-width: 100%; /* 최대 폭을 부모 요소의 100%로 설정 */
+        height: auto; /* 높이는 자동으로 설정 */
+      }
+      @media (max-width: 600px) {
+        #input3,
+        #input4,
+        #input5,
+        #button2 {
+          width: 23.5%; /* 입력 필드의 크기를 줄입니다 */
+        }
+        #input5,
+        #button2 {
+          margin-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <!-- GP의 전파제한고도 Section -->
+      <div class="section">
+        <h1 class="title">VOR의 건축물 전파고도제한 높이 산출</h1>
+        <div class="content">
+          <img src="img/cal_height_faa.png" alt="gp_height_faa Image" />
+          <p class="formula-title">- 사용공식 -</p>
+          <div class="formula">
+            <p>GP 전파제한고도 = (D-366) x tan((θ/3)°) + H</p>
+            <p>D: GP 안테나에서 건축물까지의 거리</p>
+            <p>θ: GP에서 제공하는 활공각</p>
+            <p>H: GP 안테나의 지반고 ex)울산공항: 7.663m</p>
+            <p>* FAA Order 6750.16E Grading Criteria for Image-type ILS Glide Slopes</p>
+          </div>
+          <div class="input-group">
+            <input type="number" id="input1" placeholder="D(m)" />
+            <input type="number" id="input2" placeholder="θ(°)" />
+            <input type="number" id="input3" placeholder="H(m)" />
+            <button id="button1">CAL</button>
+          </div>
+        </div>
+        <h2 class="result-title">계산 결과</h2>
+        <div class="result" id="result1"></div>
+      </div>
+    </div>
+    <script>
+        document.getElementById("button1").addEventListener("click", function (){
+            // 입력 값 가져오기
+            const d = parseFloat(document.getElementById("input1").value);
+            const theta = parseFloat(document.getElementById("input2").value);
+            const h = parseFloat(document.getElementById("input3").value);
+            // 계산 로직
+            const result = (d-366)*Math.tan(Math.toRadians(theta/3)) + h;
+            document.getElementById("result1").textContent = `▶ GP 전파제한 고도 : 해발 ${result.toFixed(2)} m`;
+        });
+
+      // 각도를 라디안으로 변환하는 유틸리티 함수
+      Math.toRadians = function (degrees) {
+        return degrees * (Math.PI / 180);
+      };
+    </script>
+  </body>
+</html>

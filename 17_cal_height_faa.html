@@ -37,7 +37,7 @@
         background-color: #a7b0ff;
         text-align: center;
         font-weight: bold;
-        font-size: 18px; /* 폰트 크기 증가 */
+        font-size: 16px; /* 폰트 크기 증가 */
         line-height: 1.5;
         padding: 15px;
       }
@@ -124,6 +124,10 @@
           margin-right: 0;
         }
       }
+      .letter-spacing-adjusted {
+        letter-spacing: -0.8px;
+    }
+
     </style>
   </head>
   <body>
@@ -139,7 +143,7 @@
             <p>D: GP 안테나에서 건축물까지의 거리</p>
             <p>θ: GP에서 제공하는 활공각</p>
             <p>H: GP 안테나의 지반고 ex)울산공항: 7.663m</p>
-            <p>* FAA Order 6750.16E Grading Criteria for Image-type ILS Glide Slopes</p>
+            <p class="letter-spacing-adjusted">* FAA Order 6750.16E Grading Criteria for Image-type ILS Glide Slopes</p>
           </div>
           <div class="input-group">
             <input type="number" id="input1" placeholder="D(m)" />

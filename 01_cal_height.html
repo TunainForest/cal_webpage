@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>Height Calculator</title>
-    <link rel="icon" type="image/png" sizes="48x48" href="img/icon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="48x48" href="img/icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
       /* 전체에 적용되는 기본 스타일 */
       * {
@@ -80,9 +80,9 @@
         padding: 0;
         box-sizing: border-box;
       }
-      #input2, #button1 {
+      #input2,
+      #button1 {
         margin-right: 0;
-
       }
 
       /* 마지막 입력 필드의 margin-right 값을 0으로 설정 */
@@ -113,14 +113,21 @@
         max-width: 100%; /* 최대 폭을 부모 요소의 100%로 설정 */
         height: auto; /* 높이는 자동으로 설정 */
       }
-      #input2, #button1, #input5, #button2{
+      #input2,
+      #button1,
+      #input5,
+      #button2 {
         margin-right: 0;
       }
       @media (max-width: 600px) {
-        #input3, #input4, #input5, #button2 {
+        #input3,
+        #input4,
+        #input5,
+        #button2 {
           width: 23.5%; /* 입력 필드의 크기를 줄입니다 */
         }
-        #input5, #button2{
+        #input5,
+        #button2 {
           margin-right: 0;
         }
       }
@@ -135,7 +142,7 @@
           <img src="img/cal_height_gp.png" alt="GP Image" />
           <p class="formula-title">- 사용공식 -</p>
           <div class="formula">
-            <p>GP전파제한고도 = tan0.67°×(D-800)+H</p>
+            <p>GP전파제한고도 = tan0.77°×(D-800)+H</p>
             <p>D: GP에서 건축물까지 거리</p>
             <p>H: GP 안테나 지반고 ex)울산공항: 7.663 m</p>
             <p>* ICAO ANNEX, EURO DOC 015 Building Restricted Area</p>
@@ -186,7 +193,7 @@
         const ag = parseFloat(document.getElementById("input2").value);
 
         // 계산 로직
-        const calculation = Math.tan(Math.toRadians(0.67)) * (dg - 800) + ag;
+        const calculation = Math.tan(Math.toRadians(0.77)) * (dg - 800) + ag;
         // 결과 출력
         document.getElementById(
           "result1"

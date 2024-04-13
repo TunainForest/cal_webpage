@@ -1,182 +1,197 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Cable length & phase calculate</title>
-    <link rel="icon" type="image/png" sizes="48x48" href="img/icon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      /* 전체에 적용되는 기본 스타일 */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
 
-      /* Body 스타일 */
-      body {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-      }
+<head>
+  <title>Cable length & phase calculate</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="img/icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    /* 전체에 적용되는 기본 스타일 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      /* 컨테이너 스타일 */
-      #container {
-        width: 100%;
-        max-width: 2000px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-      /* 각 섹션에 대한 스타일 */
-      .section {
-        margin-bottom: 20px;
-      }
+    /* Body 스타일 */
+    body {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
 
-      /* 제목 스타일 */
-      .title {
-        background-color: #a7b0ff;
-        text-align: center;
-        font-weight: bold;
-        font-size: 20px; /* 폰트 크기 증가 */
-        line-height: 1.5;
-        padding: 15px;
-      }
+    /* 컨테이너 스타일 */
+    #container {
+      width: 100%;
+      max-width: 2000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-      /* 내용 부분 스타일 */
-      .content {
-        background-color: #f2ebff;
-        padding: 10px;
-      }
+    /* 각 섹션에 대한 스타일 */
+    .section {
+      margin-bottom: 20px;
+    }
 
-      /* 공식 제목 스타일 */
-      .formula-title {
-        text-align: center;
-        font-weight: bold;
-        font-size: 20px; /* 폰트 크기 증가 */
-      }
+    /* 제목 스타일 */
+    .title {
+      background-color: #a7b0ff;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      /* 폰트 크기 증가 */
+      line-height: 1.5;
+      padding: 15px;
+    }
 
-      /* 공식 스타일 */
-      .formula {
-        text-align: center;
-        font-style: italic;
-        font-size: 18px;
-      }
+    /* 내용 부분 스타일 */
+    .content {
+      background-color: #f2ebff;
+      padding: 10px;
+    }
 
-      /* 입력 필드와 버튼 그룹 스타일 */
-      .input-group {
-        display: flex;
-        justify-content: space-between;
-        margin: 5px;
-        padding: 0;
-      }
+    /* 공식 제목 스타일 */
+    .formula-title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+      /* 폰트 크기 증가 */
+    }
 
-      /* 입력 필드 스타일 */
-      .input-group input,
-      .input-group button {
-        width: 33%;
-        margin-right: 1%;
-        min-height: 40px; /* 크기 증가 */
-        font-size: 18px;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      #input2,
-      #button1 {
-        margin-right: 0;
-      }
+    /* 공식 스타일 */
+    .formula {
+      text-align: center;
+      font-style: italic;
+      font-size: 18px;
+    }
 
-      /* 마지막 입력 필드의 margin-right 값을 0으로 설정 */
-      .input-group input:last-child {
-        margin-right: 0;
-      }
+    /* 입력 필드와 버튼 그룹 스타일 */
+    .input-group {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px;
+      padding: 0;
+    }
 
-      /* 결과 제목 스타일 */
-      .result-title {
-        background-color: #ccd1ff;
-        text-align: center;
-        font-weight: bold;
-        margin-top: 5px;
-        font-size: 20px; /* 폰트 크기 증가 */
-      }
+    /* 입력 필드 스타일 */
+    .input-group input,
+    .input-group button {
+      width: 33%;
+      margin-right: 1%;
+      min-height: 40px;
+      font-size: 18px;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      /* 결과 스타일 */
-      .result {
-        background-color: #f2ebff;
-        font-weight: bold;
-        color: #3e0202;
-        min-height: 40px;
-        padding-left: 15px;
-        font-size: 18px; /* 폰트 크기 증가 */
-      }
-      #input2,
-      #button1,
+    .input-group input:last-child,
+    .input-group button:last-child {
+      margin-right: 0;
+    }
+
+    /* 결과 제목 스타일 */
+    .result-title {
+      background-color: #ccd1ff;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 5px;
+      font-size: 20px;
+      /* 폰트 크기 증가 */
+    }
+
+    /* 결과 스타일 */
+    .result {
+      background-color: #f2ebff;
+      font-weight: bold;
+      color: #3e0202;
+      min-height: 40px;
+      padding-left: 15px;
+      font-size: 18px;
+      /* 폰트 크기 증가 */
+    }
+
+    #input3,
+    #button1,
+    #input6,
+    #button2 {
+      margin-right: 0;
+    }
+
+    @media (max-width: 600px) {
+
       #input4,
+      #input5,
       #button2 {
-        margin-right: 0;
+        width: 33%;
+        /* 입력 필드의 크기를 줄입니다 */
       }
-      @media (max-width: 600px) {
-        #input3,
-        #input4,
-        #button2 {
-          width: 33%; /* 입력 필드의 크기를 줄입니다 */
-        }
-      }
-      .input-group input::placeholder {
-        font-size: 12px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="container">
-      <!-- GP path width 계산 Section -->
-      <div class="section">
-        <h1 class="title">1. 주파수, 위상에 대한 케이블 길이</h1>
-        <div class="content">
-          <div class="input-group">
-            <input type="number" id="input1" placeholder="주파수(MHz)" />
-            <input type="number" id="input2" placeholder="위상(°)" />
-            <button id="button1">CAL</button>
-          </div>
-        </div>
-        <h2 class="result-title">계산 결과</h2>
-        <div class="result" id="result1"></div>
-      </div>
+    }
 
-      <!-- LOC course width 계산 Section -->
-      <div class="section">
-        <h1 class="title">2. 주파수, 케이블길이에 대한 위상</h1>
-        <div class="content">
-          <div class="input-group">
-            <input type="number" id="input3" placeholder="주파수(MHz)" />
-            <input type="number" id="input4" placeholder="케이블길이(cm)" />
-            <button id="button2">CAL</button>
-          </div>
+    .input-group input::placeholder {
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <!-- GP path width 계산 Section -->
+    <div class="section">
+      <h1 class="title">1. 주파수, 위상에 대한 케이블 길이</h1>
+      <div class="content">
+        <div class="input-group">
+          <input type="number" id="input1" placeholder="주파수(MHz)" />
+          <input type="number" id="input2" placeholder="위상(°)" />
+          <input type="number" id="input3" placeholder="파장단축률(%)">
+          <button id="button1">CAL</button>
         </div>
-        <h2 class="result-title">계산 결과</h2>
-        <div class="result" id="result2"></div>
       </div>
+      <h2 class="result-title">계산 결과</h2>
+      <div class="result" id="result1"></div>
     </div>
-    <script>
-      document.getElementById("button1").addEventListener("click", function () {
-        let f = parseFloat(document.getElementById("input1").value);
-        let phase = parseFloat(document.getElementById("input2").value);
-        let p = 360 / phase;
 
-        let calculation = (300 / f / p) * 100;
+    <!-- LOC course width 계산 Section -->
+    <div class="section">
+      <h1 class="title">2. 주파수, 케이블길이에 대한 위상</h1>
+      <div class="content">
+        <div class="input-group">
+          <input type="number" id="input4" placeholder="주파수(MHz)" />
+          <input type="number" id="input5" placeholder="케이블길이(cm)" />
+          <input type="number" id="input6" placeholder="파장단축률(%)" />
+          <button id="button2">CAL</button>
+        </div>
+      </div>
+      <h2 class="result-title">계산 결과</h2>
+      <div class="result" id="result2"></div>
+    </div>
+  </div>
+  <script>
+    document.getElementById("button1").addEventListener("click", function () {
+      let f = parseFloat(document.getElementById("input1").value);
+      let phase = parseFloat(document.getElementById("input2").value);
+      let velocity_factor_1 = parseFloat(document.getElementById("input3").value);
+      let p = 360 / phase;
+      let v_1 = velocity_factor_1 / 100
 
-        document.getElementById("result1").innerHTML = `▶ 케이블의 길이는 ${calculation.toFixed(1)} cm 입니다.<br><span style="font-size: 66%;">   *케이블의 velocity factor에 따라 차이가 있을 수 있음.</span>`;
+      let calculation = ((300 / f / p) * 100) * v_1;
 
-      });
+      document.getElementById("result1").innerHTML = `▶ 케이블의 길이는 ${calculation.toFixed(1)} cm 입니다.<br><span style="font-size: 66%;"> </span>`;
 
-      document.getElementById("button2").addEventListener("click", function () {
-        let f = parseFloat(document.getElementById("input3").value);
-        let length = parseFloat(document.getElementById("input4").value);
+    });
 
-        let calculation = (360 * length * f) / 300 / 100;
+    document.getElementById("button2").addEventListener("click", function () {
+      let f = parseFloat(document.getElementById("input4").value);
+      let length = parseFloat(document.getElementById("input5").value);
+      let velocity_factor_2 = parseFloat(document.getElementById("input6").value);
+      let v_2 = velocity_factor_2 / 100
 
-        document.getElementById("result2").innerHTML = `▶ 위상은 ${calculation.toFixed(1)} deg 입니다.<br><span style="font-size: 66%;">   *케이블의 velocity factor에 따라 차이가 있을 수 있음.</span>`;
+      let calculation = (360 * length * f) / 300 / 100 / v_2;
 
-      });
-    </script>
-  </body>
+      document.getElementById("result2").innerHTML = `▶ 위상은 ${calculation.toFixed(1)} deg 입니다.<br><span style="font-size: 66%;">  </span>`;
+
+    });
+  </script>
+</body>
+
 </html>

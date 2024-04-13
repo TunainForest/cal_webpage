@@ -196,6 +196,31 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('fillRandom').addEventListener('click', function () {
+                const elements90Hz = ['tx1_90Hz_35deg', 'tx1_90Hz_30deg', 'tx1_90Hz_25deg', 'tx1_90Hz_20deg', 'tx1_90Hz_15deg', 'tx1_90Hz_10deg', 'tx1_90Hz_5deg', 'tx1_90Hz_width', 'tx2_90Hz_width',
+                    'tx2_90Hz_35deg', 'tx2_90Hz_30deg', 'tx2_90Hz_25deg', 'tx2_90Hz_20deg', 'tx2_90Hz_15deg', 'tx2_90Hz_10deg', 'tx2_90Hz_5deg'];
+                const elements150Hz = ['tx1_150Hz_35deg', 'tx1_150Hz_30deg', 'tx1_150Hz_25deg', 'tx1_150Hz_20deg', 'tx1_150Hz_15deg', 'tx1_150Hz_10deg', 'tx1_150Hz_5deg', 'tx1_150Hz_width', 'tx2_150Hz_width',
+                    'tx2_150Hz_35deg', 'tx2_150Hz_30deg', 'tx2_150Hz_25deg', 'tx2_150Hz_20deg', 'tx2_150Hz_15deg', 'tx2_150Hz_10deg', 'tx2_150Hz_5deg'];
+
+                // Function to generate random numbers within a range
+                function getRandom(min, max) {
+                    return (Math.random() * (max - min) + min).toFixed(4); // .toFixed(4) limits the decimal to 4 places
+                }
+
+                elements90Hz.forEach(id => {
+                    document.getElementById(id).value = getRandom(-0.35, 0);
+                });
+
+                elements150Hz.forEach(id => {
+                    document.getElementById(id).value = getRandom(0, 0.35);
+                });
+
+                // Set CL values to 0
+                document.getElementById('tx1_CL').value = 0;
+                document.getElementById('tx2_CL').value = 0;
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('saveToExcel').addEventListener('click', function () {
                 try {
                     const date = document.getElementById('date').value;

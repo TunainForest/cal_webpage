@@ -14,6 +14,23 @@
             width: 150px;
             text-align: right;
             margin-right: 10px;
+            font-size: 16px;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"] {
+            width: 100%; /* 입력 필드 너비 조정 */
+            height: 40px; /* 입력 필드 높이 조정 */
+            font-size: 16px; /* 입력 필드의 텍스트 크기 증가 */
+            padding: 5px; /* 입력 필드 내부 패딩 추가 */
+        }
+        .button-container {
+            text-align: center; /* 버튼을 중앙에 위치시킵니다. */
+            margin-top: 20px; /* 버튼과 입력 필드 사이에 여백을 추가합니다. */
+        }
+        button {
+            padding: 10px 20px; /* 버튼 크기 조정 */
+            margin: 0 10px; /* 버튼 사이의 간격 조정 */
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
@@ -108,65 +125,62 @@
             <label class="label-fixed-width" for="tx2_150Hz_35deg">150Hz 35deg:</label>
             <input type="number" id="tx2_150Hz_35deg" name="tx2_150Hz_35deg" step="0.0001"><br>
         </div>
-        <button type="button" id="saveToExcel">Save to Excel</button>
-        <!-- 랜덤 데이터 입력 버튼 -->
-        <button type="button" id="fillRandom">Fill Random Data</button>
-
+        <div class="button-container">
+            <button type="button" id="saveToExcel">Save to Excel</button>
+            <button type="button" id="fillRandom">Fill Random Data</button>
+        </div>
     </form>
 
     <script>
-        document.getElementById('saveToExcel').addEventListener('click', function () {
+        // 날짜 포맷 변경 함수
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const year = date.getFullYear().toString().substring(2); // 년도의 마지막 두 자리
+            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월 (0부터 시작하므로 1을 더함)
+            const day = date.getDate().toString().padStart(2, '0'); // 일
+            return `${year}.${month}.${day}`;
+        }
+    
+        document.getElementById('saveToExcel').addEventListener('click', function() {
             // Get date and runway from user input
             const date = document.getElementById('date').value;
             const runway = document.getElementById('runway').value;
-            // Convert date to yy.mm.dd format
-            const dateArray = date.split('-');
-            const formattedDate = dateArray[0].substring(2) + '.' + dateArray[1] + '.' + dateArray[2];
+            
+            // 사용자가 입력한 날짜를 yy.mm.dd 포맷으로 변환
+            const formattedDate = formatDate(date); // 함수 사용
+    
             // Create Excel filename
             const filename = `${runway}_GCdata_${formattedDate}.xlsx`;
-
-            // Labels and data
+    
+            // 나머지 코드...
             const labels = [
                 '날짜', '90Hz 35deg', '90Hz 30deg', '90Hz 25deg', '90Hz 20deg', '90Hz 15deg',
                 '90Hz 10deg', '90Hz 5deg', '90Hz width', 'C/L', '150Hz width', '150Hz 35deg',
                 '150Hz 30deg', '150Hz 25deg', '150Hz 20deg', '150Hz 15deg', '150Hz 10deg', '150Hz 5deg'
             ];
-
+    
             const tx1Data = [formattedDate];
             const tx2Data = [formattedDate];
             for (const label of labels.slice(1)) {
-                tx1Data.push(document.getElementById(`tx1_${label}`).value);
-                tx2Data.push(document.getElementById(`tx2_${label}`).value);
+                const modifiedLabel = label.replace(/ /g, '_');
+                tx1Data.push(document.getElementById(`tx1_${modifiedLabel}`).value);
+                tx2Data.push(document.getElementById(`tx2_${modifiedLabel}`).value);
             }
-
+    
             // Prepare data for Excel
             const excelData = [
                 labels,
                 ['Tx1', ...tx1Data],
                 ['Tx2', ...tx2Data]
             ];
-
+    
             // Create Excel sheet and book
             const ws = XLSX.utils.aoa_to_sheet(excelData);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
+    
             // Save Excel file
             XLSX.writeFile(wb, filename);
-        });
-
-
-        document.getElementById('fillRandom').addEventListener('click', function () {
-            const labels = [
-                '90Hz_35deg', '90Hz_30deg', '90Hz_25deg', '90Hz_20deg', '90Hz_15deg', '90Hz_10deg', '90Hz_5deg',
-                '90Hz_width', 'CL', '150Hz_width',
-                '150Hz_35deg', '150Hz_30deg', '150Hz_25deg', '150Hz_20deg', '150Hz_15deg', '150Hz_10deg', '150Hz_5deg'
-            ];
-
-            labels.forEach(label => {
-                document.getElementById(`tx1_${label}`).value = Math.random().toFixed(4);
-                document.getElementById(`tx2_${label}`).value = Math.random().toFixed(4);
-            });
         });
     </script>
 

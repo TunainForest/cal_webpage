@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Input</title>
@@ -50,7 +51,8 @@
             padding: 10px;
             /* 각 박스에 패딩 추가 */
         }
-        tx-box:last-child{
+
+        tx-box:last-child {
             margin-right: 0;
         }
 
@@ -87,7 +89,8 @@
             .form-container {
                 max-width: 800px;
             }
-            .tx-box{
+
+            .tx-box {
                 width: 49%;
             }
         }
@@ -192,58 +195,35 @@
     </div>
 
     <script>
-        // 날짜 포맷 변경 함수
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            const year = date.getFullYear().toString().substring(2); // 년도의 마지막 두 자리
-            const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월 (0부터 시작하므로 1을 더함)
-            const day = date.getDate().toString().padStart(2, '0'); // 일
-            return `${year}.${month}.${day}`;
-        }
-
-        document.getElementById('saveToExcel').addEventListener('click', function () {
-            // Get date and runway from user input
-            const date = document.getElementById('date').value;
-            const runway = document.getElementById('runway').value;
-
-            // 사용자가 입력한 날짜를 yy.mm.dd 포맷으로 변환
-            const formattedDate = formatDate(date); // 함수 사용
-
-            // Create Excel filename
-            const filename = `${runway}_GCdata_${formattedDate}.xlsx`;
-
-            // 나머지 코드...
-            const labels = [
-                '날짜', '90Hz 35deg', '90Hz 30deg', '90Hz 25deg', '90Hz 20deg', '90Hz 15deg',
-                '90Hz 10deg', '90Hz 5deg', '90Hz width', 'C/L', '150Hz width', '150Hz 35deg',
-                '150Hz 30deg', '150Hz 25deg', '150Hz 20deg', '150Hz 15deg', '150Hz 10deg', '150Hz 5deg'
-            ];
-
-            const tx1Data = [formattedDate];
-            const tx2Data = [formattedDate];
-            for (const label of labels.slice(1)) {
-                const modifiedLabel = label.replace(/ /g, '_');
-                tx1Data.push(document.getElementById(`tx1_${modifiedLabel}`).value);
-                tx2Data.push(document.getElementById(`tx2_${modifiedLabel}`).value);
+        document.addEventListener('DOMContentLoaded', function() {
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                const year = date.getFullYear().toString().substring(2); // 년도의 마지막 두 자리
+                const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월 (0부터 시작하므로 1을 더함)
+                const day = date.getDate().toString().padStart(2, '0'); // 일
+                return `${year}.${month}.${day}`;
             }
-
-            // Prepare data for Excel
-            const excelData = [
-                labels,
-                ['Tx1', ...tx1Data],
-                ['Tx2', ...tx2Data]
-            ];
-
-            // Create Excel sheet and book
-            const ws = XLSX.utils.aoa_to_sheet(excelData);
-            const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-            // Save Excel file
-            XLSX.writeFile(wb, filename);
+        
+            document.getElementById('saveToExcel').addEventListener('click', function () {
+                try {
+                    const date = document.getElementById('date').value;
+                    const runway = document.getElementById('runway').value;
+        
+                    if (!date || !runway) {
+                        throw new Error('Date or runway information is missing.');
+                    }
+        
+                    const formattedDate = formatDate(date);
+                    const filename = `${runway}_GCdata_${formattedDate}.xlsx`;
+        
+                    // 나머지 코드와 이벤트 핸들러 로직
+                } catch (error) {
+                    console.error('An error occurred:', error);
+                    alert('An error occurred, please check the console for details.');
+                }
+            });
         });
-    </script>
-
+        </script>   
 </body>
 
 </html>

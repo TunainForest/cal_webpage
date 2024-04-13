@@ -5,59 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Data Input</title>
     <style>
-        body, html {
-            height: 100%;
+        * {
+            box-sizing: border-box;
+        }
+        body,
+        html {
+            height: auto;
+            min-height: 100%;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             font-family: Arial, sans-serif;
         }
-    
+
         .form-container {
             width: 100%;
-            max-width: 800px; /* 전체 폼의 최대 너비를 800px로 설정 */
+            max-width: 600px; /*전체 폼의 최대 너비를 800px로 설정 */
+            margin-top: 5vh; /* 상단에 20px의 여백 추가 */
         }
-    
+
         .tx-container {
             display: flex;
             justify-content: space-between; /* Tx1과 Tx2 사이 공간 균등 배분 */
             width: 100%; /* 컨테이너 너비 전체 */
         }
-    
+
         .tx-box {
-            width: 49%; /* 각 박스가 차지하는 너비를 절반 가까이 설정 */
+            width: 49%;
+            /* 각 박스가 차지하는 너비를 절반 가까이 설정 */
             display: flex;
             flex-direction: column;
-            margin-right: 10px;
+            /* margin-right: 10px; */
         }
-    
+
         .input-group {
-            margin-bottom: 15px; /* 입력 그룹 사이의 간격을 15px로 설정 */
+            margin-bottom: 10px;
+            /* 입력 그룹 사이의 간격을 15px로 설정 */
         }
-    
+
         label {
-            display: block; /* 라벨을 블록 요소로 설정 */
-            text-align: center; /* 텍스트 중앙 정렬 */
-            margin-bottom: 5px; /* 라벨 아래 여백 추가 */
+            display: block;
+            /* 라벨을 블록 요소로 설정 */
+            text-align: center;
+            /* 텍스트 중앙 정렬 */
+            margin-bottom: 5px;
+            /* 라벨 아래 여백 추가 */
         }
-    
-        input[type="text"], input[type="date"], input[type="number"] {
-            width: 100%; /* 입력 필드 너비 전체로 설정 */
-            padding: 8px; /* 입력 필드의 패딩을 증가시켜서 더 편안한 입력을 가능하게 함 */
-            margin-bottom: 5px; /* 입력 필드 하단에 여백 추가 */
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        button {
+            font-size: 16px;
+            padding: 8px;
         }
-    
+
         .button-container {
             text-align: center;
-            margin-top: 20px; /* 버튼과 입력 필드 사이에 20px 여백 추가 */
+            margin-top: 20px;
+            /* 버튼과 입력 필드 사이에 20px 여백 추가 */
         }
-    
-        button {
-            padding: 10px 20px;
+        @media (max-width: 600px) {
+        .form-container {
+            margin-top: 10vh; /* 모바일에서 상단 여백 더 추가 */
         }
+    }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>

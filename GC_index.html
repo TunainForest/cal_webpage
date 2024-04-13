@@ -195,35 +195,65 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function formatDate(dateString) {
-                const date = new Date(dateString);
-                const year = date.getFullYear().toString().substring(2); // 년도의 마지막 두 자리
-                const month = (date.getMonth() + 1).toString().padStart(2, '0'); // 월 (0부터 시작하므로 1을 더함)
-                const day = date.getDate().toString().padStart(2, '0'); // 일
-                return `${year}.${month}.${day}`;
-            }
-        
+        document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('saveToExcel').addEventListener('click', function () {
                 try {
                     const date = document.getElementById('date').value;
                     const runway = document.getElementById('runway').value;
-        
+
                     if (!date || !runway) {
                         throw new Error('Date or runway information is missing.');
                     }
-        
+
+                    function formatDate(dateString) {
+                        const date = new Date(dateString);
+                        const year = date.getFullYear().toString().substring(2);
+                        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                        const day = date.getDate().toString().padStart(2, '0');
+                        return `${year}.${month}.${day}`;
+                    }
+
                     const formattedDate = formatDate(date);
-                    const filename = `${runway}_GCdata_${formattedDate}.xlsx`;
-        
-                    // 나머지 코드와 이벤트 핸들러 로직
+                    const filename = `${runway}_LOC_Ground_Check_${formattedDate}.xlsx`;
+
+                    const labels = [
+                        '90Hz 35˚', '90Hz 30˚', '90Hz 25˚', '90Hz 20˚', '90Hz 15˚', '90Hz 10˚', '90Hz 5˚', '90Hz width', 'CL',
+                        '150Hz 35˚', '150Hz 30˚', '150Hz 25˚', '150Hz 20˚', '150Hz 15˚', '150Hz 10˚', '150Hz 5˚', '150Hz width'
+                    ];
+
+                    const header = ["G/C Point", "Tx1", "Tx2"];
+                    const data = [header];
+
+                    labels.forEach((label, index) => {
+                        const formattedLabel = label.replace(/˚/g, 'deg').replace(/\s/g, '_');
+                        const tx1Id = `tx1_${formattedLabel}`;
+                        const tx2Id = `tx2_${formattedLabel}`;
+                        const tx1Element = document.getElementById(tx1Id);
+                        const tx2Element = document.getElementById(tx2Id);
+
+                        if (!data[index + 1]) data[index + 1] = [];
+                        data[index + 1][0] = label;
+
+                        if (!tx1Element || !tx2Element) {
+                            throw new Error(`Element not found: ${tx1Id} or ${tx2Id}`);
+                        }
+
+                        data[index + 1][1] = tx1Element.value; // Tx1 데이터를 B열에
+                        data[index + 1][2] = tx2Element.value; // Tx2 데이터를 C열에
+                    });
+
+                    const ws = XLSX.utils.aoa_to_sheet(data);
+                    const wb = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(wb, ws, 'Data');
+                    XLSX.writeFile(wb, filename);
                 } catch (error) {
                     console.error('An error occurred:', error);
                     alert('An error occurred, please check the console for details.');
                 }
             });
         });
-        </script>   
+    </script>
+
 </body>
 
 </html>

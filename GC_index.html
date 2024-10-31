@@ -198,9 +198,9 @@
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('fillRandom').addEventListener('click', function () {
                 const elements90Hz = ['tx1_90Hz_35deg', 'tx1_90Hz_30deg', 'tx1_90Hz_25deg', 'tx1_90Hz_20deg', 'tx1_90Hz_15deg', 'tx1_90Hz_10deg', 'tx1_90Hz_5deg', 'tx1_90Hz_width', 'tx2_90Hz_width',
-                    'tx2_90Hz_35deg', 'tx2_90Hz_30deg', 'tx2_90Hz_25deg', 'tx2_90Hz_20deg', 'tx2_90Hz_15deg', 'tx2_90Hz_10deg', 'tx2_90Hz_5deg'];
+                    'tx2_90Hz_5deg', 'tx2_90Hz_10deg', 'tx2_90Hz_15deg', 'tx2_90Hz_20deg', 'tx2_90Hz_25deg', 'tx2_90Hz_30deg', 'tx2_90Hz_35deg'];
                 const elements150Hz = ['tx1_150Hz_35deg', 'tx1_150Hz_30deg', 'tx1_150Hz_25deg', 'tx1_150Hz_20deg', 'tx1_150Hz_15deg', 'tx1_150Hz_10deg', 'tx1_150Hz_5deg', 'tx1_150Hz_width', 'tx2_150Hz_width',
-                    'tx2_150Hz_35deg', 'tx2_150Hz_30deg', 'tx2_150Hz_25deg', 'tx2_150Hz_20deg', 'tx2_150Hz_15deg', 'tx2_150Hz_10deg', 'tx2_150Hz_5deg'];
+                    'tx2_150Hz_5deg', 'tx2_150Hz_10deg', 'tx2_150Hz_15deg', 'tx2_150Hz_20deg', 'tx2_150Hz_25deg', 'tx2_150Hz_30deg', 'tx2_150Hz_35deg'];
 
                 // Function to generate random numbers within a range
                 function getRandom(min, max) {
@@ -243,7 +243,7 @@
 
                     const labels = [
                         '90Hz 35˚', '90Hz 30˚', '90Hz 25˚', '90Hz 20˚', '90Hz 15˚', '90Hz 10˚', '90Hz 5˚', '90Hz width', 'CL',
-                        '150Hz 35˚', '150Hz 30˚', '150Hz 25˚', '150Hz 20˚', '150Hz 15˚', '150Hz 10˚', '150Hz 5˚', '150Hz width'
+                        '150Hz width', '150Hz 5˚', '150Hz 10˚', '150Hz 15˚', '150Hz 20˚', '150Hz 25˚', '150Hz 30˚', '150Hz 35˚'
                     ];
 
                     const header = ["G/C Point", "Tx1", "Tx2"];
